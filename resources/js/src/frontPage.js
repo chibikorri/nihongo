@@ -6,21 +6,53 @@ function frontPage() {
 
 
 	//tts functionality
-	var synth = window.speechSynthesis;
-	var voices = speechSynthesis.getVoices();
+	synth = window.speechSynthesis;
+	voices = synth.getVoices();
+	foundMain = 0;
+	foundBK = 0;
+	speaker = 0;
+
+
+	i = 0;
 
 	var speakerArray = [19, 20, 22, 24];
+
+
 
 	function populateVoiceList() {
 	  voices = synth.getVoices().sort(function (a, b) {
 	      var aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
+				if(a.name.toUpperCase().indexOf("SAYAKA") != -1) {
+					console.log('found');
+				}
 	      if ( aname < bname ) return -1;
 	      else if ( aname == bname ) return 0;
 	      else return +1;
 	  });
-		console.log(voices);
+
+		for(i = 0; i < voices.length; i++) {
+			if(voices[i].name.indexOf("Sayaka") != -1) {
+				console.log('found main');
+				foundMain = i;
+			} else if (voices[i].name.indexOf("Google 日本語")) {
+				console.log('found backup');
+				foundBK = i;
+
+			}
+
+
+	  }
+
+		if(foundMain > 0) {
+				speaker = foundMain;
+		}
+		else if (foundBK > 0) {
+				speaker = foundBK;
+		}
+
 	}
 		populateVoiceList();
+
 		if (speechSynthesis.onvoiceschanged !== undefined) {
 		  speechSynthesis.onvoiceschanged = populateVoiceList;
 		}
@@ -32,7 +64,8 @@ function speak(word) {
 	theWord = new SpeechSynthesisUtterance(word);
 	theWord.volume = 1;
 		// console.log(voices);
-	theWord.voice = voices[ 24 ];
+	theWord.voice = voices[ speaker ];
+
 
 	synth.speak(theWord);
 }
