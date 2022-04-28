@@ -1,0 +1,252 @@
+.rotate-tts {
+  .result {
+    max-width: 1000px;
+    margin: 0 auto;
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr 2fr 2fr 1fr 1fr;
+      grid-column-gap: 5px;
+      margin-bottom: 5px;
+      &:hover {
+        background: #777;
+      }
+
+      .points {
+        display: none;
+      }
+
+      .kanji, .kana {
+        font-size: 30px;
+      }
+      .right {
+        background: green;
+        text-align: center;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .wrong {
+        background: red;
+        text-align: center;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+    }
+  }
+  .playpause {
+    background: rgb(0, 150, 50);
+    padding: 10px;
+    margin: 0px auto;
+    margin-bottom: 20px;
+    width: 200px;
+    text-align: center;
+    &:hover {
+      cursor: pointer;
+    }
+
+  }
+}
+
+.lesson-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 10px;
+  margin-bottom: 10px;
+  .lesson {
+    background: #333;
+    padding: 5px;
+    &:hover {
+      cursor:pointer;
+      background: #6b6;
+
+    }
+  }
+}
+
+.wordline {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 10px 0;
+  width: 1000px;
+  margin: 0 auto;
+  &:hover {
+    cursor: pointer;
+    background: rgb(120, 0, 0);
+
+  }
+}
+
+
+.cards .con .card.card .lesung.kana {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    font-size: 32px;
+}
+
+.cards {
+	.con {
+		max-width: 700px;
+		margin-top: 50px;
+		.modes {
+	    display: flex;
+	    margin-bottom: 30px;
+	    font-size: 20px;
+			.title {
+	    	background: 0 0;
+			}
+			.active {
+    		background: #0a0;
+				&:hover {
+				    cursor: pointer;
+				    background: #0a0;
+				}
+			}
+			div {
+			  margin-right: 10px;
+			  padding: 5px;
+			  background: #999;
+				&:hover {
+				    cursor: pointer;
+				    background: #ab0;
+				}
+			}
+		}
+		.stack-view {
+			display: grid;
+			grid-template-columns: repeat(10, 1fr);
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 30px;
+			background: linear-gradient(90deg, #b33, #6b0);
+			.stack {
+				border: 1px dashed rgba(255, 255, 255, 0.3);
+
+				text-align: center;
+				padding: 5px;
+				&:hover {
+					background: #333;
+					cursor:pointer;  }
+				// &.stack-0 {   }
+				// &.stack-1 { &:hover { background: #333; cursor:pointer;  }  }
+				// &.stack-2 { &:hover { background: #333; cursor:pointer;  }  }
+				// &.stack-3 { &:hover { background: #333; cursor:pointer;  }  }
+				// &.stack-4 { &:hover { background: #333; cursor:pointer;  }  }
+				// &.stack-5 { &:hover { background: #333; cursor:pointer;  }  }
+				// &.stack-6 { &:hover { background: #333; cursor:pointer;  }  }
+				// &.stack-7 { &:hover { background: #333; cursor:pointer;  }  }
+				// &.stack-8 { &:hover { background: #333; cursor:pointer;  }  }
+				// &.stack-9 { &:hover { background: #333; cursor:pointer;  }  }
+
+				.icon {
+					img {
+						width: 30px;
+						filter: invert();
+					}
+				}
+			}
+		}
+		.card {
+			border: 1px dashed white;
+			// height: 500px;
+			background: none;
+			display: grid;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+
+			.button {
+				height: 50px;
+				padding: 5px;
+				display: grid;
+				justify-content: center;
+				align-items: center;
+
+
+			}
+			&.kanjicard {
+				grid-template-columns: 1fr 1fr;
+				.title {
+					font-weight: bold;
+				}
+				.context {
+					// font-weight: bold;
+				}
+				.kanji {
+					padding: 10px 5px;
+					grid-column-start: 1;
+					grid-column-end: 3;
+					font-size: 80px;
+					border-bottom: 1px solid white;
+					font-family: 'Ms Mincho', sans-serif;
+
+				}
+				.ap {
+					grid-column-start: 1;
+					grid-column-end: 3;
+					padding: 10px 0;
+					&.active {
+						background: #b33;
+
+					}
+					&.passive {
+						background: #c83;
+
+					}
+
+				}
+				.lesung {
+					padding: 10px 5px;
+					font-size: 20px;
+				}
+				.on {
+
+				}
+				.kun {
+
+				}
+				.bedeutung {
+					padding: 10px 5px;
+					font-size: 20px;
+					border-top: 1px solid white;
+					border-bottom: 1px solid white;
+					grid-column-start: 1;
+					grid-column-end: 3;
+
+				}
+				.reveal {
+					grid-column-start: 1;
+					grid-column-end: 3;
+					background: #06b;
+					text-transform: uppercase;
+					&:hover {
+						background: #06f;
+						cursor: pointer;
+					}
+
+				}
+				.check.right {
+					display: none;
+					background: #6b0;
+					text-transform: uppercase;
+					&:hover {
+						background: #6d0;
+						cursor: pointer;
+					}
+
+				}
+				.check.wrong {
+					display: none;
+					background: #b33;
+					text-transform: uppercase;
+					&:hover {
+						background: #d33;
+						cursor: pointer;
+					}
+
+				}
+			}
+		}
+	}
+}

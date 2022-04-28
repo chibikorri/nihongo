@@ -1,0 +1,540 @@
+#tile2 {
+  width: 1000px;
+  height: 500px;
+  border: 1px solid white;
+}
+* {
+  font-family: 'Klee One', cursive;
+  font-weight: 400;
+}
+html {
+  font-size: 14px;
+}
+a {
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+a:hover {
+  text-decoration: none;
+  color: white;
+}
+body {
+  height: 100vh;
+  width: 100%;
+  color: white;
+  background: #555;
+}
+body .con {
+  max-width: 100%;
+}
+.rotate-tts .result {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.rotate-tts .result form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 2fr 2fr 1fr 1fr;
+  grid-column-gap: 5px;
+  margin-bottom: 5px;
+}
+.rotate-tts .result form:hover {
+  background: #777;
+}
+.rotate-tts .result form .points {
+  display: none;
+}
+.rotate-tts .result form .kanji,
+.rotate-tts .result form .kana {
+  font-size: 30px;
+}
+.rotate-tts .result form .right {
+  background: green;
+  text-align: center;
+}
+.rotate-tts .result form .right:hover {
+  cursor: pointer;
+}
+.rotate-tts .result form .wrong {
+  background: red;
+  text-align: center;
+}
+.rotate-tts .result form .wrong:hover {
+  cursor: pointer;
+}
+.rotate-tts .playpause {
+  background: #009632;
+  padding: 10px;
+  margin: 0px auto;
+  margin-bottom: 20px;
+  width: 200px;
+  text-align: center;
+}
+.rotate-tts .playpause:hover {
+  cursor: pointer;
+}
+.lesson-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 10px;
+  margin-bottom: 10px;
+}
+.lesson-picker .lesson {
+  background: #333;
+  padding: 5px;
+}
+.lesson-picker .lesson:hover {
+  cursor: pointer;
+  background: #6b6;
+}
+.wordline {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 10px 0;
+  width: 1000px;
+  margin: 0 auto;
+}
+.wordline:hover {
+  cursor: pointer;
+  background: #780000;
+}
+.cards .con .card.card .lesung.kana {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-size: 32px;
+}
+.cards .con {
+  max-width: 700px;
+  margin-top: 50px;
+}
+.cards .con .modes {
+  display: flex;
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+.cards .con .modes .title {
+  background: 0 0;
+}
+.cards .con .modes .active {
+  background: #0a0;
+}
+.cards .con .modes .active:hover {
+  cursor: pointer;
+  background: #0a0;
+}
+.cards .con .modes div {
+  margin-right: 10px;
+  padding: 5px;
+  background: #999;
+}
+.cards .con .modes div:hover {
+  cursor: pointer;
+  background: #ab0;
+}
+.cards .con .stack-view {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #b33, #6b0);
+}
+.cards .con .stack-view .stack {
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  text-align: center;
+  padding: 5px;
+}
+.cards .con .stack-view .stack:hover {
+  background: #333;
+  cursor: pointer;
+}
+.cards .con .stack-view .stack .icon img {
+  width: 30px;
+  filter: invert();
+}
+.cards .con .card {
+  border: 1px dashed white;
+  background: none;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.cards .con .card .button {
+  height: 50px;
+  padding: 5px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+.cards .con .card.kanjicard {
+  grid-template-columns: 1fr 1fr;
+}
+.cards .con .card.kanjicard .title {
+  font-weight: bold;
+}
+.cards .con .card.kanjicard .kanji {
+  padding: 10px 5px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-size: 80px;
+  border-bottom: 1px solid white;
+  font-family: 'Ms Mincho', sans-serif;
+}
+.cards .con .card.kanjicard .ap {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  padding: 10px 0;
+}
+.cards .con .card.kanjicard .ap.active {
+  background: #b33;
+}
+.cards .con .card.kanjicard .ap.passive {
+  background: #c83;
+}
+.cards .con .card.kanjicard .lesung {
+  padding: 10px 5px;
+  font-size: 20px;
+}
+.cards .con .card.kanjicard .bedeutung {
+  padding: 10px 5px;
+  font-size: 20px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.cards .con .card.kanjicard .reveal {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background: #06b;
+  text-transform: uppercase;
+}
+.cards .con .card.kanjicard .reveal:hover {
+  background: #06f;
+  cursor: pointer;
+}
+.cards .con .card.kanjicard .check.right {
+  display: none;
+  background: #6b0;
+  text-transform: uppercase;
+}
+.cards .con .card.kanjicard .check.right:hover {
+  background: #6d0;
+  cursor: pointer;
+}
+.cards .con .card.kanjicard .check.wrong {
+  display: none;
+  background: #b33;
+  text-transform: uppercase;
+}
+.cards .con .card.kanjicard .check.wrong:hover {
+  background: #d33;
+  cursor: pointer;
+}
+.data.kotoba-data .data-form {
+  grid-template-columns: 15% 15% 15% 5% 5% 5% 5% 10% 10% !important;
+}
+.data.kotoba-data .database-mirror div.table {
+  grid-template-columns: 5% 20% 20% 20% 5% 5% 5% 5% 10% !important;
+}
+.data {
+  margin-top: 20px;
+}
+.data .add-new {
+  margin-top: 10px;
+}
+.data .add-new .data-form {
+  display: grid;
+  grid-template-columns: 7% 15% 15% 20% 10% 3% 3% 3% 10% 10%;
+  grid-column-gap: 5px;
+}
+.data .add-new .data-form input[name="kanji"] {
+  font-size: 32px;
+}
+.data .add-new .data-form span {
+  display: block;
+}
+.data .add-new .data-form input {
+  font-size: 16px;
+  padding: 5px;
+  width: 100%;
+}
+.data .add-new .data-form .ronly {
+  opacity: 0.2;
+}
+.data .add-new .data-form button {
+  background: #33e;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.data .database-mirror {
+  margin-top: 50px;
+}
+.data .database-mirror div.table {
+  display: grid;
+  grid-template-columns: 3% 3% 10% 15% 20% 20% 8% 3% 3% 3% 8%;
+  width: 100%;
+}
+.data .database-mirror div.table div {
+  border: 1px solid #333;
+  font-size: 16px;
+  text-align: center;
+  padding: 5px;
+  background: #ddd;
+}
+.data .database-mirror div.table .table-header {
+  background: #aaa;
+}
+.data .database-mirror div.table .table-row.kanji {
+  font-size: 32px;
+}
+nav {
+  height: 50px;
+  background: #333;
+}
+nav .con {
+  height: 100%;
+}
+nav .title {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 150px;
+  text-transform: uppercase;
+  padding: 10px;
+  background: #c00;
+  font-weight: bold;
+}
+nav .title a {
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+.nav {
+  padding: 5px 0;
+}
+.nav.module {
+  background: #a44;
+}
+.nav.data-modules {
+  background: #4a4;
+}
+.con.start .section-title {
+  width: 150px;
+  background: #bbb;
+  color: #111;
+  padding: 10px;
+  text-align: center;
+}
+.con.start .links {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-column-gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.con.start .links a {
+  display: grid;
+  background: #333;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.con.start .links a:hover {
+  background: #338;
+}
+.filter .inner {
+  display: flex;
+  padding: 10px;
+}
+.filter .inner .lesson-button {
+  background-color: red;
+  margin: 0 5px;
+  padding: 2px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+.filter .inner .lesson-button.on {
+  background-color: green;
+}
+.filter .inner .lesson-button:hover {
+  cursor: pointer;
+  background-color: blue;
+}
+.frontpage {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 10px;
+}
+.frontpage .headline {
+  background: #333;
+  padding: 5px;
+}
+.frontpage .kanji-front {
+  background: #a00;
+}
+.frontpage .kanji-front .title {
+  position: relative;
+  padding: 5px;
+  height: 40px;
+  background: #777;
+}
+.frontpage .kanji-front .title .category {
+  position: relative;
+}
+.frontpage .kanji-front .title .controls {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 40px;
+  display: flex;
+}
+.frontpage .kanji-front .title .controls .show {
+  background: #000;
+  margin-left: 10px;
+  width: 40px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.frontpage .kanji-front .title .controls .show:hover {
+  cursor: pointer;
+  background: #444;
+}
+.frontpage .kanji-front .view {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  padding: 10px;
+  font-size: 30px;
+  color: #111;
+}
+.frontpage .kanji-front .view .port {
+  text-align: center;
+  background: #ddd;
+}
+.frontpage .kanji-front .view .port.true {
+  opacity: 1;
+}
+.frontpage .kanji-front .view .port.false {
+  opacity: 0.6;
+}
+.frontpage .kanji-front .view .port:hover {
+  background: #aaa;
+  cursor: pointer;
+}
+.frontpage .kanji-front .view .port .on,
+.frontpage .kanji-front .view .port .kun {
+  font-size: 14px;
+}
+.frontpage .kotoba-front {
+  background: #0a0;
+}
+.frontpage .kotoba-front .headline {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+.frontpage .kotoba-front .headline .ui {
+  display: flex;
+  justify-content: right;
+}
+.frontpage .kotoba-front .headline .ui .playstop:hover {
+  cursor: pointer;
+  background-color: green;
+}
+.frontpage .kotoba-front .headline .ui div {
+  background-color: red;
+  margin-right: 10px;
+  padding: 5px;
+}
+.frontpage .kotoba-front .headline .ui .show {
+  background: #000;
+  margin-left: 10px;
+  width: 30px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.frontpage .kotoba-front .headline .ui .show:hover {
+  cursor: pointer;
+  background: #444;
+}
+.frontpage .kotoba-front .view {
+  padding: 10px;
+  font-size: 20px;
+  color: #111;
+}
+.frontpage .kotoba-front .view .f20 {
+  font-size: 20px;
+}
+.frontpage .kotoba-front .view .f30 {
+  font-size: 28px;
+}
+.frontpage .kotoba-front .view .port {
+  position: relative;
+  height: 70px;
+  padding: 10px 0;
+  text-align: center;
+  background: #ddd;
+  margin-bottom: 10px;
+}
+.frontpage .kotoba-front .view .port.true {
+  opacity: 1;
+}
+.frontpage .kotoba-front .view .port.false {
+  opacity: 0.6;
+}
+.frontpage .kotoba-front .view .port:hover {
+  cursor: pointer;
+  background: #ddf;
+}
+.frontpage .kotoba-front .view .port .swap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #fff;
+  width: 60px;
+  height: 30px;
+}
+.frontpage .kotoba-front .view .port .swap:hover {
+  cursor: pointer;
+  background: #ccc;
+}
+.frontpage .kotoba-front .view .port .hidden {
+  display: none;
+}
+.frontpage .kotoba-front .view .port .hidden .inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.frontpage .kotoba-front .view .port .on,
+.frontpage .kotoba-front .view .port .kun {
+  font-size: 14px;
+}
+.frontpage .sentences-front {
+  background: #00a;
+}
+.frontpage .sentences-front .view {
+  padding: 10px;
+  font-size: 20px;
+  color: #111;
+}
+.frontpage .sentences-front .view .port {
+  text-align: center;
+  background: #ddd;
+  margin-bottom: 10px;
+}
+.frontpage .sentences-front .view .port .on,
+.frontpage .sentences-front .view .port .kun {
+  font-size: 14px;
+}

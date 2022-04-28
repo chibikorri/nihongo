@@ -1,0 +1,81 @@
+.data.kotoba-data .data-form {
+    grid-template-columns: 15% 15% 15% 5% 5% 5% 5% 10% 10% !important;}
+.data.kotoba-data .database-mirror div.table {
+    grid-template-columns: 5% 20% 20% 20% 5% 5% 5% 5% 10% !important;}
+.data {
+	margin-top: 20px;
+	.add-new {
+		margin-top: 10px;
+		.data-form {
+			display: grid;
+			grid-template-columns: 7% 15% 15% 20% 10% 3% 3% 3% 10% 10%;
+			grid-column-gap: 5px;
+			input[name="kanji"] {
+				font-size: 32px;
+			}
+			span {
+				display: block;
+			}
+			input {
+				font-size: 16px;
+				padding: 5px;
+				width: 100%;
+			}
+			.ronly {
+					opacity: 0.2;
+			}
+			button {
+				background: #33e;
+				color: white;
+				text-transform: uppercase;
+				font-weight: bold;
+			}
+		}
+	}
+	.database-mirror {
+		margin-top: 50px;
+		div.table {
+			display: grid;
+			grid-template-columns: 3% 3% 10% 15% 20% 20% 8% 3% 3% 3% 8%;
+			width: 100%;
+			div {
+				border: 1px solid #333;
+				font-size: 16px;
+				text-align: center;
+				padding: 5px;
+				background: #ddd;
+
+			}
+			.table-header {
+				background: #aaa;
+			}
+			.table-row.kanji {
+				font-size: 32px;
+			}
+			// .id {
+			// 	width: 100px;
+			// }
+			// .kanji {
+			// 	width: 100px;
+			// }
+			// .on {
+			// 	width: 100px;
+			// }
+			// .kun {
+			// 	width: 100px;
+			// }
+			// .bedeutung {
+			// 	width: 100px;
+			// }
+			// .rank {
+			// 	width: 100px;
+			// }
+			// .points {
+			// 	width: 100px;
+			// }
+			// .timestamp {
+			// 	width: 100px;
+			// }
+		}
+	}
+}

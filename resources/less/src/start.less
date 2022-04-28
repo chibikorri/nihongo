@@ -1,0 +1,258 @@
+.nav {
+  padding:5px 0;
+  &.module {
+    background: #a44;
+
+  }
+  &.data-modules {
+    background: #4a4;
+  }
+}
+
+.con.start {
+  // margin-top: 20px;
+  .section-title {
+    // margin-top: 30px;
+    width: 150px;
+    background: #bbb;
+    color: #111;
+    padding: 10px;
+    text-align: center;
+    a {
+
+    }
+  }
+  .links {
+    // margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-column-gap: 10px;
+    justify-content: center;
+    align-items: center;
+    a {
+      // height: 100px;
+      display:grid;
+      background: #333;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      &:hover {
+        background: #338;
+      }
+    }
+
+  }
+}
+
+.filter {
+  .inner {
+    display: flex;
+    padding: 10px;
+    .lesson-button {
+      background-color: red;
+      margin: 0 5px;
+      padding: 2px;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      &.on {
+        background-color: green;
+      }
+      &:hover {
+        cursor: pointer;
+        background-color: blue;
+      }
+    }
+  }
+}
+
+.frontpage {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 10px;
+  .headline {
+    background: #333;
+    padding: 5px;
+
+  }
+
+  .kanji-front {
+    background: #a00;
+    .title {
+      position: relative;
+      padding: 5px;
+      height: 40px;
+      background: #777;
+      .category {
+        position: relative;
+
+      }
+      .controls {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        // width: 40px;
+        height: 40px;
+        display: flex;
+        .show {
+          background: #000;
+          margin-left: 10px;
+          width: 40px;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
+          &:hover {
+            cursor: pointer;
+            background: #444;
+          }
+        }
+
+      }
+    }
+
+    .view {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+        padding: 10px;
+        font-size: 30px;
+        color: #111;
+        .port {
+          &.true {
+              opacity: 1;
+          }
+          &.false {
+            opacity: 0.6;
+          }
+          &:hover {
+            background: #aaa;
+            cursor: pointer;
+          }
+          .on,.kun {
+            font-size: 14px;
+          }
+          text-align: center;
+          background: #ddd;
+        }
+    }
+    .aktiv {
+
+    }
+    .passiv {
+
+    }
+  }
+  .kotoba-front {
+    background: #0a0;
+    .headline {
+      display: grid;
+      grid-template-columns: 1fr 5fr;
+      .ui {
+        display: flex;
+        justify-content: right;
+        .playstop {
+          &:hover {
+            cursor:pointer;
+            background-color: green;
+          }
+        }
+        div {
+          background-color: red;
+          margin-right: 10px;
+          padding: 5px;
+        }
+        .show {
+          background: #000;
+          margin-left: 10px;
+          width: 30px;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
+          &:hover {
+            cursor: pointer;
+            background: #444;
+          }
+        }
+
+      }
+    }
+    .view {
+        padding: 10px;
+        font-size: 20px;
+        color: #111;
+        .f20 {
+          font-size: 20px;
+        }
+        .f30 {
+          font-size: 28px;
+        }
+        .port {
+          position: relative;
+          &.true {
+              opacity: 1;
+          }
+          &.false {
+            opacity: 0.6;
+          }
+          height: 70px;
+          padding: 10px 0;
+          &:hover {
+            cursor:pointer;
+            background: #ddf;
+          }
+          .swap {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #fff;
+            width: 60px;
+            height: 30px;
+            &:hover {
+              cursor: pointer;
+              background: #ccc;
+            }
+          }
+          .visib {
+
+          }
+
+          .hidden {
+            display: none;
+            .inner {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+            }
+          }
+          .on,.kun {
+            font-size: 14px;
+          }
+          text-align: center;
+          background: #ddd;
+          margin-bottom: 10px;
+        }
+    }
+
+
+  }
+  .sentences-front {
+    background: #00a;
+    .view {
+        padding: 10px;
+        font-size: 20px;
+        color: #111;
+        .port {
+
+          .on,.kun {
+            font-size: 14px;
+          }
+          text-align: center;
+          background: #ddd;
+          margin-bottom: 10px;
+        }
+    }
+
+
+  }
+}

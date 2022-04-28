@@ -1,0 +1,49 @@
+@firstgray: #333;
+@secondgray: #555;
+@thirdgray: #777;
+
+@maxwidth: 100%;
+
+
+#tile2 {
+	width: 1000px;
+	height: 500px;
+	border: 1px solid white;
+}
+
+* {
+	font-family: 'Klee One', cursive;
+	font-weight: 400;
+}
+
+
+html {
+	font-size: 14px;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+	width: 100%;
+    height: 100%;
+    display: block;
+	&:hover {
+		text-decoration: none;
+		color: white;
+	}
+}
+
+
+
+body {
+	height: 100vh;
+	width: 100%;
+	color: white;
+	background: @secondgray;
+	// padding-top: 60px;
+	.con {
+		max-width: @maxwidth;
+		// margin: 0 auto;
+	}
+
+}
