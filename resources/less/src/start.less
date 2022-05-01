@@ -148,10 +148,10 @@
     background: #0a0;
     .headline {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       .hl {
         grid-column-start: 1;
-        grid-column-end: 3;
+        grid-column-end: 4;
 
       }
       .dictate-mode {
@@ -164,6 +164,18 @@
           &.active {
             background: #bfb;
           }
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      .manual-mode {
+
+        div.mode-button {
+          display: inline-block;
+          background: #bbb;
+          color: black;
+          width: 50px;
           &:hover {
             cursor: pointer;
           }

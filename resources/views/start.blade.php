@@ -148,6 +148,12 @@ sentencelist = [];
          <div class="mode-button active">active</div>
          <div class="mode-button">inactive</div>
        </div>
+       <div class="manual-mode">
+         <div>Manual pick</div>
+         <div class="mode-button">ALL</div>
+         <div class="mode-button active">active</div>
+         <div class="mode-button">inactive</div>
+       </div>
        <div class="ui">
          <div class="playstop stop">start</div>
 

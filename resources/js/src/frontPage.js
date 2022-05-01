@@ -407,6 +407,23 @@ $('.dictate-mode .mode-button').on('click', function() {
 	$(this).addClass('active');
 });
 
+$('.manual-mode .mode-button').on('click', function() {
+	manualMode = $(this).html();
+	console.log(manualMode);
+	switch(manualMode) {
+		case "ALL":
+		fakekey = 100;
+		break;
+		case "inactive":
+		fakekey = 103;
+		break;
+		case "active":
+		fakekey = 102;
+		break;
+	}
+	dictatethis(fakekey);
+});
+
 function rotator() {
 	//d = 100 keycode = dictate all
 	//f = 102 keycode = dictate true
