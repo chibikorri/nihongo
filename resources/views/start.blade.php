@@ -142,8 +142,15 @@ sentencelist = [];
    <div class="kotoba-front">
      <div class="headline">
        <div class="hl">言葉</div>
+       <div class="dictate-mode">
+         <div>Dictate Mode</div>
+         <div class="mode-button">ALL</div>
+         <div class="mode-button active">active</div>
+         <div class="mode-button">inactive</div>
+       </div>
        <div class="ui">
          <div class="playstop stop">start</div>
+
          <!-- <div class="shuffle on">shuffle on</div> -->
          <!-- <input type="number" value="10"> -->
          <div class="show true">T</div>

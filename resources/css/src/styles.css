@@ -372,7 +372,7 @@ nav .title a {
 .frontpage {
   margin: 20px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 15% 65% 20%;
   grid-column-gap: 10px;
 }
 .frontpage .headline {
@@ -412,9 +412,9 @@ nav .title a {
 }
 .frontpage .kanji-front .view {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
   padding: 10px;
   font-size: 30px;
   color: #111;
@@ -442,7 +442,23 @@ nav .title a {
 }
 .frontpage .kotoba-front .headline {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 1fr;
+}
+.frontpage .kotoba-front .headline .hl {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.frontpage .kotoba-front .headline .dictate-mode div.mode-button {
+  display: inline-block;
+  background: #bbb;
+  color: black;
+  width: 50px;
+}
+.frontpage .kotoba-front .headline .dictate-mode div.mode-button.active {
+  background: #bfb;
+}
+.frontpage .kotoba-front .headline .dictate-mode div.mode-button:hover {
+  cursor: pointer;
 }
 .frontpage .kotoba-front .headline .ui {
   display: flex;

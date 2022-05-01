@@ -69,7 +69,7 @@
 .frontpage {
   margin: 20px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 15% 65% 20%;
   grid-column-gap: 10px;
   .headline {
     background: #333;
@@ -113,9 +113,9 @@
 
     .view {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-column-gap: 20px;
-        grid-row-gap: 20px;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
         padding: 10px;
         font-size: 30px;
         color: #111;
@@ -148,7 +148,27 @@
     background: #0a0;
     .headline {
       display: grid;
-      grid-template-columns: 1fr 5fr;
+      grid-template-columns: 1fr 1fr;
+      .hl {
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+      }
+      .dictate-mode {
+
+        div.mode-button {
+          display: inline-block;
+          background: #bbb;
+          color: black;
+          width: 50px;
+          &.active {
+            background: #bfb;
+          }
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
       .ui {
         display: flex;
         justify-content: right;

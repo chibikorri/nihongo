@@ -398,8 +398,29 @@ function dictatethis2() {
 	}
 }
 
+$('.dictate-mode .mode-button').on('click', function() {
+	$('.dictate-mode .mode-button').removeClass('active');
+	$(this).addClass('active');
+});
+
 function rotator() {
-	dictatethis(102);
+	//d = 100 keycode = dictate all
+	//f = 102 keycode = dictate true
+	//g = 103 keycode = dictate false
+	dictateMode = $('.dictate-mode .mode-button.active').html();
+	console.log(dictateMode);
+	switch(dictateMode) {
+		case "ALL":
+		fakekey = 100;
+		break;
+		case "inactive":
+		fakekey = 103;
+		break;
+		case "active":
+		fakekey = 102;
+		break;
+	}
+	dictatethis(fakekey);
 }
 function stopRotator() {
 	clearInterval(myInterval);
