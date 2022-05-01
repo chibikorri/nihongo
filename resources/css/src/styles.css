@@ -526,6 +526,15 @@ nav .title a {
   cursor: pointer;
   background: #ccc;
 }
+.frontpage .kotoba-front .view .port .visib {
+  position: relative;
+}
+.frontpage .kotoba-front .view .port .visib span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #888;
+}
 .frontpage .kotoba-front .view .port .hidden {
   display: none;
 }

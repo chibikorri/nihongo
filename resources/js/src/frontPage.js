@@ -4,6 +4,9 @@ function frontPage() {
 	kotobashuffle = "on";
 	sentenceshuffle = "on";
 
+	//counter
+	dictCount = 0;
+
 
 	//tts functionality
 	synth = window.speechSynthesis;
@@ -346,9 +349,10 @@ function dictatethis(key) {
 		console.log(randWord);
 
 		speak(randWord);
+		dictCount++;
 
 		appendThis = '<div class="port">'+
-			'<div class="visib f30 kanji">'+randWordKanji+'</div>'+
+			'<div class="visib f30 kanji"><span >'+dictCount+'</span> '+randWordKanji+'</div>'+
 			'<div class="hidden">'+
 				'<div class="inner">'+
 					'<div class="tts kana">'+randWord+'</div>'+
