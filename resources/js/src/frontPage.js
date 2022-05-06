@@ -493,7 +493,7 @@ $('.kotoba-front .playstop').on('click', function()  {
 $('.sentences-front .rng-btn').on('click', function()  {
 
 //pick random sentence
-dictatethis2();
+dictatethis2("106");
 
 
 });
