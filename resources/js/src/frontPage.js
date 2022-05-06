@@ -410,8 +410,7 @@ function dictatethis2(key) {
 
 		if(key=="106") {
 			appendThis = '<div class="port">'+
-			'<div class="kanji-sent">'+kjWord+'</div>'+
-			'<div style="display: none;" class="hira-sent">{{$sentence->hiragana}}</div>'+
+			'<div class="kanji-sent-d">'+kjWord+'</div>'+			
 			'</div>';
 
 			$('.sentences-front .dictateitems .hl').after(appendThis);

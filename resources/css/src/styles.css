@@ -612,6 +612,12 @@ nav .title a {
   height: 100%;
   align-items: center;
 }
+.frontpage .sentences-front .view .port .kanji-sent-d {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+}
 .frontpage .sentences-front .view .port .on,
 .frontpage .sentences-front .view .port .kun {
   font-size: 14px;
