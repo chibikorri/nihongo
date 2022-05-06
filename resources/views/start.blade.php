@@ -4,7 +4,8 @@
 
 @section('content')
 <script>
-kanjilist = [];
+activeKanjilist = [];
+passiveKanjilist = [];
 kotobalist = [];
 sentencelist = [];
 </script>
@@ -52,8 +53,16 @@ sentencelist = [];
   </div>
 </div>
 
+<div class="con toggle-modes">
+  <div class="inner">
+    <div class="mode-buttons kanji-btn"> KANJIS</div>
+    <div class="mode-buttons kotoba-btn active"> KOTOBAS</div>
+    <div class="mode-buttons sentences-btn"> SENTENCES</div>
+  </div>
+</div>
+
  <div class="con frontpage">
-   <div class=kanji-front>
+   <div class="cBox kanji-front">
      <div class="headline">漢字</div>
      <div class="aktiv">
        <div class="title">
@@ -68,21 +77,33 @@ sentencelist = [];
        </div>
        <div class="view">
          @foreach($kanjis as $kanji)
+         @if ($kanji->activepassive == "active" )
+          <script>
+           activeKanjilist.push("{{$kanji->kanji}}");
+          </Script>
+          @endif
           @if(in_array($kanji->lesson, $configArray))
            <script>
            console.log("{{$kanji->kanji}}");
 
-           if(typeof kanjilist[{{$kanji->id}}] === 'undefined') {
-           kanjilist[{{$kanji->id}}] = [];
-           }
-           else {
-               console.log('exist');
-           }
+
+
+           // if(typeof activeKanjilist[{{$kanji->id}}] === 'undefined') {
+           //  activeKanjilist[{{$kanji->id}}] = [];
+           //  activeKanjilist[{{$kanji->id}}].push("test") ;
+           //  console.log("me not there");
+           // }
+           // else {
+           //     console.log('exist');
+           // }
 
            </script>
            @if ($kanji->activepassive == "active" && $kanji->status == 1)
            <div class="port true {{$kanji->id}}">{{$kanji->kanji}}</div>
            @elseif ($kanji->activepassive == "active" )
+            <script>
+             activeKanjilist.push("{{$kanji->kanji}}");
+            </Script>
              <div class="port false {{$kanji->id}}" style="display: none;">{{$kanji->kanji}}</div>
 
            @endif
@@ -113,8 +134,8 @@ sentencelist = [];
            <script>
            console.log("{{$kanji->kanji}}");
 
-           if(typeof kanjilist[{{$kanji->id}}] === 'undefined') {
-           kanjilist[{{$kanji->id}}] = [];
+           if(typeof passiveKanjilist[{{$kanji->id}}] === 'undefined') {
+           passiveKanjilist[{{$kanji->id}}] = [];
            }
            else {
                console.log('exist');
@@ -124,6 +145,9 @@ sentencelist = [];
            @if ($kanji->activepassive == "passive" && $kanji->status == 1)
            <div class="port true {{$kanji->id}}">{{$kanji->kanji}}</div>
            @elseif ($kanji->activepassive == "passive" )
+           <script>
+            passiveKanjilist.push("{{$kanji->kanji}}");
+           </Script>
              <div class="port false {{$kanji->id}}" style="display: none;">{{$kanji->kanji}}</div>
 
            @endif
@@ -139,7 +163,13 @@ sentencelist = [];
      </div>
 
    </div>
-   <div class="kotoba-front">
+   <script>
+   $(function() {
+     console.log(activeKanjilist);
+
+   });
+   </script>
+   <div class="cBox kotoba-front active">
      <div class="headline">
        <div class="hl">言葉</div>
        <div class="dictate-mode">
@@ -197,7 +227,28 @@ sentencelist = [];
          @endif
           <div class="swap">Swap</div>
            @if($shuffle == 1)
+
            <div class="visib f30 kanji">{{$kotoba->kanji}}</div>
+           <script>
+              fullstring = "{{$kotoba->kanji}}";
+              rebuildString = "";
+              console.log(fullstring);
+              for (var i = 0; i < fullstring.length; i++) {
+                console.log(fullstring.charAt(i));
+                //check each character if activepassive
+                singleKJ = fullstring.charAt(i);
+
+                if(activeKanjilist.includes(singleKJ)) {
+                  console.log("YEP");
+                  rebuildString += '<span style="background: #a60; color: white;">'+singleKJ+'</span>';
+                }
+                else {
+                  rebuildString += '<span>'+singleKJ+'</span>';
+                }
+              }
+              console.log(rebuildString);
+              $('.port.{{$kotoba->id}} .visib.f30.kanji').html(rebuildString);
+           </script>
            <div class="hidden">
              <div class="inner">
                <div class="tts kana">{{$kotoba->kana}}</div>
@@ -232,19 +283,24 @@ sentencelist = [];
        </div>
      </div>
    </div>
-   <div class="sentences-front">
+   <div class="cBox sentences-front">
       <div class="headline">
         <div class="hl">文章</div>
         <div class="ui">
+          <div class="rng-btn">Random Sentence</div>
          <div class="playstop stop">start</div>
          <!-- <div class="shuffle on">shuffle on</div> -->
          <!-- <input type="number" value="10"> -->
-         <div class="show true">T</div>
-         <div class="show false">F</div>
-         <div class="show all">A</div>
+         <!-- <div class="show true">T</div> -->
+         <!-- <div class="show false">F</div> -->
+         <!-- <div class="show all">A</div> -->
        </div>
    </div>
      <div class="view">
+       <div class="dictateitems">
+         <div class="hl">Dictate</div>
+      </div>
+       <div class="hl">Overview</div>
        @foreach($sentences as $sentence)
         @if(in_array($sentence->lesson, $configArray))
          <script>
@@ -259,12 +315,33 @@ sentencelist = [];
 
          </script>
          @if ($sentence->status == 1)
-           <div class="port tts true">
+           <div class="port tts true sentence-{{$sentence->id}}">
          @else
-           <div class="port tts false">
+           <div class="port tts false sentence-{{$sentence->id}}">
          @endif
-           {{$sentence->sentence}}
+           <div class="kanji-sent">{{$sentence->sentence}}</div>
+           <div style="display: none;" class="hira-sent">{{$sentence->hiragana}}</div>
          </div>
+         <script>
+            fullstring = " {{$sentence->sentence}}";
+            rebuildString = "";
+            console.log(fullstring);
+            for (var i = 0; i < fullstring.length; i++) {
+              console.log(fullstring.charAt(i));
+              //check each character if activepassive
+              singleKJ = fullstring.charAt(i);
+
+              if(activeKanjilist.includes(singleKJ)) {
+                console.log("YEP");
+                rebuildString += '<span style="background: #a60; color: white;">'+singleKJ+'</span>';
+              }
+              else {
+                rebuildString += '<span>'+singleKJ+'</span>';
+              }
+            }
+            console.log(rebuildString);
+            $('.port.sentence-{{$sentence->id}} .kanji-sent').html(rebuildString);
+         </script>
 
          @endif
        @endforeach

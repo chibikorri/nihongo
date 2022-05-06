@@ -26,6 +26,7 @@
 
         <!-- Styles -->
         <link href="assets/styles.min.css" rel="stylesheet">
+        <script src="assets/scripts.min.js"></script>
 
     </head>
     <body class="">
@@ -39,5 +40,4 @@
 
 
      </body>
-  <script src="assets/scripts.min.js"></script>
 </html>

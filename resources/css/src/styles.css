@@ -248,7 +248,7 @@ body .con {
 }
 .data .add-new .data-form {
   display: grid;
-  grid-template-columns: 7% 15% 15% 20% 10% 3% 3% 3% 10% 10%;
+  grid-template-columns: 7% 15% 15% 20% 10% 10% 10%;
   grid-column-gap: 5px;
 }
 .data .add-new .data-form input[name="kanji"] {
@@ -369,10 +369,42 @@ nav .title a {
   cursor: pointer;
   background-color: blue;
 }
+.toggle-modes {
+  padding: 0px 20px;
+  margin-top: 20px;
+}
+.toggle-modes .inner {
+  display: flex;
+}
+.toggle-modes .inner div.mode-buttons {
+  margin-right: 20px;
+  padding: 5px;
+  background: black;
+}
+.toggle-modes .inner div.mode-buttons.kanji-btn:hover {
+  background: #a00;
+}
+.toggle-modes .inner div.mode-buttons.kanji-btn.active {
+  background: #a00;
+}
+.toggle-modes .inner div.mode-buttons.kotoba-btn:hover {
+  background: #0a0;
+}
+.toggle-modes .inner div.mode-buttons.kotoba-btn.active {
+  background: #0a0;
+}
+.toggle-modes .inner div.mode-buttons.sentences-btn:hover {
+  background: #00a;
+}
+.toggle-modes .inner div.mode-buttons.sentences-btn.active {
+  background: #00a;
+}
+.toggle-modes .inner div.mode-buttons:hover {
+  cursor: pointer;
+  filter: saturate(2);
+}
 .frontpage {
   margin: 20px;
-  display: grid;
-  grid-template-columns: 15% 65% 20%;
   grid-column-gap: 10px;
 }
 .frontpage .headline {
@@ -381,6 +413,7 @@ nav .title a {
 }
 .frontpage .kanji-front {
   background: #a00;
+  display: none;
 }
 .frontpage .kanji-front .title {
   position: relative;
@@ -411,8 +444,8 @@ nav .title a {
   background: #444;
 }
 .frontpage .kanji-front .view {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   padding: 10px;
@@ -540,7 +573,7 @@ nav .title a {
 .frontpage .kotoba-front .view .port .visib {
   position: relative;
 }
-.frontpage .kotoba-front .view .port .visib span {
+.frontpage .kotoba-front .view .port .visib span.dictcount {
   position: absolute;
   left: 0;
   top: 0;
@@ -558,17 +591,26 @@ nav .title a {
   font-size: 14px;
 }
 .frontpage .sentences-front {
-  background: #00a;
+  background: #a9a9db;
+  display: none;
 }
 .frontpage .sentences-front .view {
   padding: 10px;
   font-size: 20px;
-  color: #111;
+  color: #666;
 }
 .frontpage .sentences-front .view .port {
+  height: 70px;
+  align-items: center;
   text-align: center;
   background: #ddd;
   margin-bottom: 10px;
+}
+.frontpage .sentences-front .view .port .kanji-sent {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
 }
 .frontpage .sentences-front .view .port .on,
 .frontpage .sentences-front .view .port .kun {

@@ -73,6 +73,16 @@ function speak(word) {
 	synth.speak(theWord);
 }
 
+//content-toggle
+$('.toggle-modes .mode-buttons').on('click', function() {
+	$('.toggle-modes .mode-buttons').removeClass('active');
+	$(this).addClass('active');
+	showContent = $(this).attr('class').split(" ")[1].split("-")[0];
+	$('.cBox').hide();
+	$('.'+showContent+'-front').show();
+
+});
+
 $('.controls .show').on('click', function() {
 	thisClass = $(this).attr('class').split(" ")[1];
 	thisParent = $(this).parent().parent().parent().attr('class');
@@ -303,7 +313,7 @@ $('.sentences-front .port').mousedown(function(e) {
 
 	if (e.which === 1) {
 		/* speak */
-		speakthis = $(this).html();
+		speakthis = $(this).find('.hira-sent').html();
 		speak(speakthis);
 	}
 	if (e.which === 2) {
@@ -352,7 +362,7 @@ function dictatethis(key) {
 		dictCount++;
 
 		appendThis = '<div class="port">'+
-			'<div class="visib f30 kanji"><span >'+dictCount+'</span> '+randWordKanji+'</div>'+
+			'<div class="visib f30 kanji"><span class="dictcount">'+dictCount+'</span> '+randWordKanji+'</div>'+
 			'<div class="hidden">'+
 				'<div class="inner">'+
 					'<div class="tts kana">'+randWord+'</div>'+
@@ -387,15 +397,25 @@ function dictatethis(key) {
 	}
 }
 
-function dictatethis2() {
+function dictatethis2(key) {
 	if(kotobashuffle == "on") {
 
-		kotobaElem = $('.sentences-front .port');
-		kotobaNum = kotobaElem.length;
-		console.log(kotobaNum);
+		kjSentElem = $('.sentences-front .port .kanji-sent');
+		hiraSentElem = $('.sentences-front .port .hira-sent');
+		kotobaNum = kjSentElem.length;
 		pickRand = Math.floor(Math.random()*kotobaNum);
-		randWord = kotobaElem.eq(pickRand).html();
-		speak(randWord);
+		kjWord = kjSentElem.eq(pickRand).html();
+		hiraWord = hiraSentElem.eq(pickRand).html();
+		speak(hiraWord);
+
+		if(key=="106") {
+			appendThis = '<div class="port">'+
+			'<div class="kanji-sent">'+kjWord+'</div>'+
+			'<div style="display: none;" class="hira-sent">{{$sentence->hiragana}}</div>'+
+			'</div>';
+
+			$('.sentences-front .dictateitems .hl').after(appendThis);
+		}
 	}
 	else {
 
@@ -470,6 +490,13 @@ $('.kotoba-front .playstop').on('click', function()  {
 	}
 });
 
+$('.sentences-front .rng-btn').on('click', function()  {
+
+//pick random sentence
+dictatethis2();
+
+
+});
 
 $('.sentences-front .playstop').on('click', function()  {
 	if($(this).hasClass('stop')) {
@@ -491,10 +518,14 @@ $('html').keypress(function(e) {
 	//d = 100 keycode = dictate all
 	//f = 102 keycode = dictate true
 	//g = 103 keycode = dictate false
+	//j = 106 keycode = random sentence
 	console.log(e.keyCode);
 
 	if(e.keyCode == "100" || e.keyCode == "102" || e.keyCode == "103") {
 		dictatethis(e.keyCode);
+	}
+	else if(e.keyCode == "106") {
+		dictatethis2(e.keyCode);
 	}
 });
 
