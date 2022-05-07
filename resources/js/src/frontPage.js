@@ -390,6 +390,10 @@ function dictatethis(key) {
 			kotoMouseout($(this));
 
 		});
+		$('.kotoba-front .port').on('click', function() {
+			speak($(this).find('.tts.kana').html());
+
+		});
 
 	}
 	else {
