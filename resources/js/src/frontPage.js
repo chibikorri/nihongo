@@ -409,11 +409,20 @@ function dictatethis2(key) {
 		speak(hiraWord);
 
 		if(key=="106") {
-			appendThis = '<div class="port">'+
-			'<div class="kanji-sent-d">'+kjWord+'</div>'+			
+			appendThis = '<div class="port sent-dict">'+
+			'<div class="kanji-sent-d">'+kjWord+'</div>'+
+			'<div style="display: none;" class="hira-sent-d">'+hiraWord+'</div>'+
 			'</div>';
 
 			$('.sentences-front .dictateitems .hl').after(appendThis);
+			$('.sent-dict').on('click', function() {
+
+				speakHira = $(this).find('.hira-sent-d').html();
+
+				console.log(speakHira);
+				speak(speakHira);
+
+			});
 		}
 	}
 	else {
