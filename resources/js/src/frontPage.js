@@ -110,23 +110,23 @@ $('.controls .show').on('click', function() {
 
 $('.kotoba-front .ui .show').on('click', function() {
 	thisClass = $(this).attr('class').split(" ")[1];
-	thisParent = $(this).parent().parent().parent().attr('class');
+	thisParent = $('.kotoba-front');
 
 	// alert(thisParent);
 
 	if(thisClass == "all") {
-		$("."+thisParent).find('.port').show();
+		thisParent.find('.port').show();
 
 	}
 	else {
 		if(thisClass == "true") {
-			$("."+thisParent).find('.port.true').show();
-			$("."+thisParent).find('.port.false').hide();
+			thisParent.find('.port.true').show();
+			thisParent.find('.port.false').hide();
 
 		}
 		else {
-			$("."+thisParent).find('.port.true').hide();
-			$("."+thisParent).find('.port.false').show();
+			thisParent.find('.port.true').hide();
+			thisParent.find('.port.false').show();
 		}
 
 	}
