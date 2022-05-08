@@ -62,15 +62,16 @@ function frontPage() {
 
 
 
-function speak(word) {
+function speak(word, pitch) {
 
 	theWord = new SpeechSynthesisUtterance(word);
+	theWord.rate = pitch;
 	theWord.volume = 1;
 		// console.log(voices);
 	theWord.voice = voices[ speaker ];
 
 
-	synth.speak(theWord);
+	synth.speak(theWord, 1);
 }
 
 //content-toggle
@@ -254,7 +255,7 @@ $('.kotoba-front .port').mousedown(function(e) {
 	    if (e.which === 1) {
         /* speak */
 				speakthis = $(this).find('.tts').html();
-				speak(speakthis);
+				speak(speakthis, 1);
     	}
 			if (e.which === 2) {
         /* remove */
@@ -314,7 +315,7 @@ $('.sentences-front .port').mousedown(function(e) {
 	if (e.which === 1) {
 		/* speak */
 		speakthis = $(this).find('.hira-sent').html();
-		speak(speakthis);
+		speak(speakthis, 0.5);
 	}
 	if (e.which === 2) {
 		/* remove */
@@ -358,10 +359,10 @@ function dictatethis(key) {
 		randwordMeaning = kotobaElem.eq(pickRand).find('.meaning').html();
 		console.log(randWord);
 
-		speak(randWord);
+		speak(randWord, 1);
 		dictCount++;
 
-		appendThis = '<div class="port">'+
+		appendThis = '<div class="port dict-'+dictCount+'">'+
 			'<div class="visib f30 kanji"><span class="dictcount">'+dictCount+'</span> '+randWordKanji+'</div>'+
 			'<div class="hidden">'+
 				'<div class="inner">'+
@@ -390,8 +391,8 @@ function dictatethis(key) {
 			kotoMouseout($(this));
 
 		});
-		$('.kotoba-front .port').on('click', function() {
-			speak($(this).find('.tts.kana').html());
+		$('.kotoba-front .port.dict-'+dictCount).on('click', function() {
+			speak($(this).find('.tts.kana').html(), 1);
 
 		});
 
@@ -410,7 +411,7 @@ function dictatethis2(key) {
 		pickRand = Math.floor(Math.random()*kotobaNum);
 		kjWord = kjSentElem.eq(pickRand).html();
 		hiraWord = hiraSentElem.eq(pickRand).html();
-		speak(hiraWord);
+		speak(hiraWord, 0.5);
 
 		if(key=="106") {
 			appendThis = '<div class="port sent-dict">'+
@@ -424,7 +425,7 @@ function dictatethis2(key) {
 				speakHira = $(this).find('.hira-sent-d').html();
 
 				console.log(speakHira);
-				speak(speakHira);
+				speak(speakHira, 0.5);
 
 			});
 		}
