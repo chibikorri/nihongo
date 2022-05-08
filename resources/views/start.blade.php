@@ -37,6 +37,7 @@ sentencelist = [];
 <div class="con filter">
   <div class="inner">
     <div class="">Filter: </div>
+    <div class="lesson-button none">none</div>
     @if($activeLesson != "1")
       <div class="lesson-button All on">All</div>
     @else

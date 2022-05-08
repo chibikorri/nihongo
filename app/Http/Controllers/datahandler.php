@@ -302,6 +302,12 @@ class datahandler extends Controller
          'status' => 1
         ]);
       }
+      if($lesson == "none") {
+        DB::table('config')
+         ->update([
+         'status' => 0
+        ]);
+      }
 
       // dd($data);
       // echo 'points: '.$data['newPoints'].', rank: '.$data['newRank'].', id: '.$data['kanjiID'].', timestamp: '.$newStamp;
