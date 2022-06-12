@@ -481,6 +481,16 @@ nav .title a {
   grid-column-start: 1;
   grid-column-end: 4;
 }
+.frontpage .kotoba-front .headline .dictate-mode .german-enable {
+  width: 200px;
+  background: #ddd;
+  padding: 5px 10px;
+  color: black;
+}
+.frontpage .kotoba-front .headline .dictate-mode .german-enable:hover {
+  background: #3da;
+  cursor: pointer;
+}
 .frontpage .kotoba-front .headline .dictate-mode div.mode-button {
   display: inline-block;
   margin-bottom: 5px;
@@ -520,7 +530,7 @@ nav .title a {
 .frontpage .kotoba-front .headline .ui .show {
   background: #000;
   margin-left: 10px;
-  width: 30px;
+  font-size: 12px;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -533,17 +543,12 @@ nav .title a {
   padding: 10px;
   font-size: 20px;
   color: #111;
-}
-.frontpage .kotoba-front .view .f20 {
-  font-size: 20px;
-}
-.frontpage .kotoba-front .view .f30 {
-  font-size: 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 5px;
 }
 .frontpage .kotoba-front .view .port {
   position: relative;
-  height: 70px;
-  padding: 10px 0;
   text-align: center;
   background: #ddd;
   margin-bottom: 10px;
@@ -552,26 +557,71 @@ nav .title a {
   opacity: 1;
 }
 .frontpage .kotoba-front .view .port.false {
+  opacity: 1;
+  background: linear-gradient(90deg, #80f282, #e0e6cf);
+}
+.frontpage .kotoba-front .view .port.false .swap-disable div {
+  background: #050;
+  color: white;
+}
+.frontpage .kotoba-front .view .port.disabled {
   opacity: 0.6;
 }
 .frontpage .kotoba-front .view .port:hover {
   cursor: pointer;
   background: #ddf;
 }
+.frontpage .kotoba-front .view .port .swap-disable {
+  display: grid;
+  grid-template-columns: 20px 1fr 1fr;
+  grid-column-gap: 5px;
+  text-align: center;
+}
+.frontpage .kotoba-front .view .port .swap-disable .origin {
+  font-size: 8px;
+}
+.frontpage .kotoba-front .view .port .swap-disable div {
+  margin: 0 auto;
+  padding: 5px 0;
+  font-size: 12px;
+  width: 100%;
+}
 .frontpage .kotoba-front .view .port .swap {
-  position: absolute;
-  top: 0;
-  right: 0;
   background: #fff;
-  width: 60px;
-  height: 30px;
 }
 .frontpage .kotoba-front .view .port .swap:hover {
   cursor: pointer;
   background: #ccc;
 }
+.frontpage .kotoba-front .view .port .quick-btn-con {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.frontpage .kotoba-front .view .port .quick-btn {
+  background: white;
+  font-size: 12px;
+  margin: 0px 20px 10px 20px;
+}
+.frontpage .kotoba-front .view .port .quick-btn:hover {
+  background: #3da;
+  cursor: pointer;
+}
+.frontpage .kotoba-front .view .port .disable {
+  background: #fff;
+}
+.frontpage .kotoba-front .view .port .disable:hover {
+  cursor: pointer;
+  background: #ccc;
+}
+.frontpage .kotoba-front .view .port div.dictorigin {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: 10px;
+}
 .frontpage .kotoba-front .view .port .visib {
   position: relative;
+  padding: 10px 0;
 }
 .frontpage .kotoba-front .view .port .visib span.dictcount {
   position: absolute;
@@ -581,6 +631,7 @@ nav .title a {
 }
 .frontpage .kotoba-front .view .port .hidden {
   display: none;
+  padding: 10px 0;
 }
 .frontpage .kotoba-front .view .port .hidden .inner {
   display: grid;

@@ -35,7 +35,7 @@ $timestamp = date('Ymd');
 			</div>
 			<div class="">
 				<span >L</span>
-				<input  required type="number" value="12" name="lesson">
+				<input  required type="number" value="15" name="lesson">
 			</div>
 			<div class="ronly"  style="display:none;">
 				<span >Rank</span>

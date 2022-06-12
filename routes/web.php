@@ -43,4 +43,5 @@ Route::post('pointchange', 'datahandler@pointchange');
 Route::post('kanjistatus', 'datahandler@kanjistatus');
 Route::post('kotobastatus', 'datahandler@kotobastatus');
 Route::post('lessonpick', 'datahandler@lessonpick');
+Route::post('kotobaoccur', 'datahandler@kotobaoccur');
 // Route::post('kanjicardrelearn', 'datahandler@kanjicardRelearn');

@@ -12,6 +12,7 @@ class japanese extends Controller
 
       $configArray = array();
       $config = DB::table('config')
+      ->orderBy('lesson')
       ->get();
 
       foreach($config as $value) {

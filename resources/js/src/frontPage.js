@@ -14,6 +14,8 @@ function frontPage() {
 	foundMain = 0;
 	foundBK = 0;
 	speaker = 0;
+	sprecher = 0;
+	timer = false;
 
 
 	i = 0;
@@ -32,15 +34,22 @@ function frontPage() {
 	      else if ( aname == bname ) return 0;
 	      else return +1;
 	  });
+		console.log(voices);
 
 		for(i = 0; i < voices.length; i++) {
+
 			if(voices[i].name.indexOf("Sayaka") != -1) {
 				console.log('found main');
+
 				foundMain = i;
-			} else if (voices[i].name.indexOf("Google 日本語")) {
+			} else if (voices[i].name.indexOf("Google 日本語") != -1) {
 				console.log('found backup');
 				foundBK = i;
 
+			}
+			if (voices[i].name.indexOf("Google Deutsch") != -1) {
+				console.log("!!! "+i);
+				sprecher = i;
 			}
 
 
@@ -62,8 +71,9 @@ function frontPage() {
 
 
 
-function speak(word, pitch) {
+function speak(word, pitch, speaker) {
 
+	console.log("! "+sprecher);
 	theWord = new SpeechSynthesisUtterance(word);
 	theWord.rate = pitch;
 	theWord.volume = 1;
@@ -123,11 +133,18 @@ $('.kotoba-front .ui .show').on('click', function() {
 		if(thisClass == "true") {
 			thisParent.find('.port.true').show();
 			thisParent.find('.port.false').hide();
+			thisParent.find('.port.disabled').hide();
 
 		}
-		else {
+		else if(thisClass == "false") {
 			thisParent.find('.port.true').hide();
 			thisParent.find('.port.false').show();
+			thisParent.find('.port.disabled').hide();
+		}
+		else if(thisClass == "disabled") {
+			thisParent.find('.port.true').hide();
+			thisParent.find('.port.false').hide();
+			thisParent.find('.port.disabled').show();
 		}
 
 	}
@@ -192,6 +209,10 @@ $('.kanji-front .port').mousedown(function(e) {
 $('.lesson-button').on('click', function() {
 
 	getLesson = $(this).attr('class').split(" ")[1];
+	 if(getLesson == "-1") {
+	 	getLesson = "All";
+	 }
+	//  alert(getLesson);
 	if($(this).hasClass('on')) {
 			getStatus = 0;
 	}
@@ -255,7 +276,7 @@ $('.kotoba-front .port').mousedown(function(e) {
 	    if (e.which === 1) {
         /* speak */
 				speakthis = $(this).find('.tts').html();
-				speak(speakthis, 1);
+				speak(speakthis, 1, speaker);
     	}
 			if (e.which === 2) {
         /* remove */
@@ -272,18 +293,65 @@ $('.kotoba-front .port').mousedown(function(e) {
 //
 // });
 
+
+//active dictate / inactive dictate
 $('.kotoba-front .port .swap').on('click', function() {
-	getId = $(this).parent().attr('class').split(" ")[2];
-	getStatus = $(this).parent().attr('class').split(" ")[1];
+	getId = $(this).parent().parent().attr('class').split(" ")[2];
+	getStatus = $(this).parent().parent().attr('class').split(" ")[1];
 	token = $('meta[name="csrf-token"]').attr('content');
 	if(getStatus == "true") {
 		newStatus = 0;
-		$(this).parent().addClass("false").removeClass("true");
+		$(this).parent().parent().addClass("false").removeClass("true");
+		  $('.kotoba-front .curDictCount').html(curDictCount);
 
 	}
 	else if(getStatus == "false") {
 		newStatus = 1;
-		$(this).parent().addClass("true").removeClass("false");
+		$(this).parent().parent().addClass("true").removeClass("false");
+		  $('.kotoba-front .curDictCount').html(curDictCount);
+	}
+	else if(getStatus == "disabled") {
+		newStatus = 1;
+		$(this).parent().parent().addClass("true").removeClass("false");
+		 $('.kotoba-front .curDictCount').html(curDictCount);
+	}
+
+
+	$.ajax({
+		url:"/kotobastatus",
+		type: "post",
+		data: {
+			"_token": token,
+			"status": newStatus,
+			"kotobaID": getId
+
+		},
+		cache: false,
+		success: function(response) {
+			console.log('success');
+			console.log(response);
+			// $('form.id-'+id).hide();
+		},
+		error: function(response) {
+			console.log('fail');
+			console.log(response);
+		}
+	});
+});
+
+//disabled / enabled
+$('.kotoba-front .port .disable').on('click', function() {
+	getId = $(this).parent().parent().attr('class').split(" ")[2];
+	getStatus = $(this).parent().parent().attr('class').split(" ")[1];
+	token = $('meta[name="csrf-token"]').attr('content');
+	if(getStatus == "disabled") {
+		newStatus = 1;
+		$(this).parent().parent().addClass("true").removeClass("false").removeClass("disabled");
+
+	}
+	else {
+		newStatus = 2;
+		$(this).parent().parent().removeClass("true").removeClass("false").addClass("disabled");
 	}
 
 
@@ -315,7 +383,7 @@ $('.sentences-front .port').mousedown(function(e) {
 	if (e.which === 1) {
 		/* speak */
 		speakthis = $(this).find('.hira-sent').html();
-		speak(speakthis, 0.5);
+		speak(speakthis, 0.5, speaker);
 	}
 	if (e.which === 2) {
 		/* remove */
@@ -326,61 +394,83 @@ $('.sentences-front .port').mousedown(function(e) {
 
 });
 
-function dictatethis(key) {
-	if(kotobashuffle == "on") {
-		//get length
-		switch(key) {
-			case 100:
-			kotobaElem = $('.kotoba-front .listitems .port');
-			break;
-			case 102:
-				if($('.kotoba-front .listitems .port.true').length) {
-					kotobaElem = $('.kotoba-front .listitems .port.true');
-				}
-				else {
-					kotobaElem = $('.kotoba-front .listitems .port');
-				}
-			break;
-			case 103:
-				if($('.kotoba-front .listitems .port.false').length) {
-					kotobaElem = $('.kotoba-front .listitems .port.false');
-				}
-				else {
-					kotobaElem = $('.kotoba-front .listitems .port');
-				}
-			break;
+function pickRandom(kotobaElem_f, kotobaNum_f) {
+	pickRand = Math.floor(Math.random()*kotobaNum_f);
+	randWord = kotobaElem_f.eq(pickRand).find('.kana').html();
+	randWordKanji = kotobaElem_f.eq(pickRand).find('.kanji').html();
+	randwordMeaning = kotobaElem_f.eq(pickRand).find('.meaning').html();
+	thisOccur = kotobaElem_f.eq(pickRand).find('.thisOccur').html();
+	chance = 1-((totalOccur-thisOccur)/(totalOccur+thisOccur));
+	thisOrigin = kotobaElem_f.eq(pickRand).find('.origin').html();
+	elemState = kotobaElem_f.eq(pickRand).attr('class').split(" ")[1];
+	elemID = kotobaElem_f.eq(pickRand).attr('class').split(" ")[2];
+	switch(elemState) {
+		case "true":
+		quickSwap = "add";
+		break;
+		case "false":
+		quickSwap = "remove";
+		break;
+		case "disabled":
+		quickSwap = "add";
+		break;
+	}
+	// chance = 1-((totalOccur-100)/(totalOccur+100));
+	roll = Math.random();
+	console.log(randWord);
+	console.log("occur: "+chance+', roll: '+roll);
 
+
+	if(roll<chance) {
+		speak(randWord, 1, speaker);
+		if($('.dictate-mode .german-enable').hasClass('enable')) {
+			speak(randwordMeaning, 1, sprecher);
 		}
-		kotobaNum = kotobaElem.length;
-		console.log(kotobaNum);
-		pickRand = Math.floor(Math.random()*kotobaNum);
-		randWord = kotobaElem.eq(pickRand).find('.kana').html();
-		randWordKanji = kotobaElem.eq(pickRand).find('.kanji').html();
-		randwordMeaning = kotobaElem.eq(pickRand).find('.meaning').html();
-		console.log(randWord);
-
-		speak(randWord, 1);
 		dictCount++;
 
-		appendThis = '<div class="port dict-'+dictCount+'">'+
-			'<div class="visib f30 kanji"><span class="dictcount">'+dictCount+'</span> '+randWordKanji+'</div>'+
-			'<div class="hidden">'+
-				'<div class="inner">'+
-					'<div class="tts kana">'+randWord+'</div>'+
-					'<div class="">'+randwordMeaning+'</div>'+
-				'</div>'+
-			'</div>'+
+		appendThis = '<div class="port dict-'+dictCount+' '+elemID+' dict-'+elemState+'">'+
+		'<div class="quick-btn-con">'+
+		'<div class="quick-btn '+quickSwap+'">'+quickSwap+'</div><div class="quick-btn disabler">Disable</div>'+
+		'</div>'+
+		'<div class="dictorigin">'+thisOrigin+'</div>'+
+		'<div class="visib f30 kanji"><span class="dictcount">'+dictCount+'</span> '+randWordKanji+'</div>'+
+		'<div class="hidden">'+
+		'<div class="inner">'+
+		'<div class="tts kana">'+randWord+'</div>'+
+		'<div class="">'+randwordMeaning+'</div>'+
+		'</div>'+
+		'</div>'+
 		'</div>';
 
-		// appendThis = '<div class="port">'+
-		// 	'<div class="visib kana">'+randWord+'</div>'+
-		// 	'<div class="hidden">'+
-		// 		'<div class="inner">'+
-		// 			'<div class="tts f30  kanji">'+randWordKanji+'</div>'+
-		// 			'<div class="">'+randwordMeaning+'</div>'+
-		// 		'</div>'+
-		// 	'</div>'+
-		// '</div>';
+		newOccur = parseInt(thisOccur)+1;
+		console.log("new:"+ newOccur);
+		getId = kotobaElem_f.eq(pickRand).attr('class').split(" ")[2] ;
+		console.log("id "+getId);
+		token = $('meta[name="csrf-token"]').attr('content');
+
+		//add counter to database
+		$.ajax({
+			url:"/kotobaoccur",
+			type: "post",
+			data: {
+				"_token": token,
+				"newOccur": newOccur,
+				"kotobaID": getId
+
+			},
+			cache: false,
+			success: function(response) {
+				console.log('success');
+				console.log(response);
+				kotobaElem_f.eq(pickRand).find('.thisOccur').html(newOccur);
+				// $('form.id-'+id).hide();
+			},
+			error: function(response) {
+				console.log('fail');
+				console.log(response);
+			}
+		});
+
 
 		$('.kotoba-front .dictateitems .hl').after(appendThis);
 		$('.kotoba-front .port').on('mouseover', function() {
@@ -392,14 +482,118 @@ function dictatethis(key) {
 
 		});
 		$('.kotoba-front .port.dict-'+dictCount).on('click', function() {
-			speak($(this).find('.tts.kana').html(), 1);
+			speak($(this).find('.tts.kana').html(), 1, speaker);
+
+		});
+
+		$('.port.dict-'+dictCount+' .quick-btn').on('click', function() {
+			//1. find id
+			dictElemID = $(this).parent().parent().attr('class').split(" ")[2];
+			dictElemState = $(this).attr('class').split(" ")[1];
+			console.log(dictElemState+", "+dictElemID);
+			switch(dictElemState) {
+				case "add":
+				$('.listitems .port.'+dictElemID).removeClass("true").removeClass("disabled").addClass("false");
+				newStatus = 0;
+				break;
+				case "remove":
+				$('.listitems .port.'+dictElemID).addClass("true").removeClass("disabled").removeClass("false");
+				newStatus = 1;
+				break;
+				case "disabler":
+				$('.listitems .port.'+dictElemID).removeClass("true").addClass("disabled").removeClass("false");
+				newStatus = 2;
+				break;
+			}
+			$.ajax({
+				url:"/kotobastatus",
+				type: "post",
+				data: {
+					"_token": token,
+					"status": newStatus,
+					"kotobaID": dictElemID
+
+				},
+				cache: false,
+				success: function(response) {
+					console.log('success');
+					console.log(response);
+					$('.dictateitems .port.'+dictElemID).find('.quick-btn').remove();
+					// $('form.id-'+id).hide();
+				},
+				error: function(response) {
+					console.log('fail');
+					console.log(response);
+				}
+			});
+
 
 		});
 
 	}
 	else {
+		console.log('reroll');
+		pickRandom(kotobaElem_f, kotobaNum_f);
+	}
+
+
+}
+
+function dictatethis(key) {
+	if(kotobashuffle == "on") {
+		//get length
+		switch(key) {
+			case 100:
+			kotobaElem = $('.kotoba-front .listitems .port');
+			break;
+			case 115:
+			kotobaElem = $('.kotoba-front .listitems .port.enabled');
+			break;
+			case 103:
+				if($('.kotoba-front .listitems .port.true').length) {
+					kotobaElem = $('.kotoba-front .listitems .port.true');
+				}
+				else {
+					kotobaElem = $('.kotoba-front .listitems .port');
+				}
+			break;
+			case 102:
+				if($('.kotoba-front .listitems .port.false').length) {
+					kotobaElem = $('.kotoba-front .listitems .port.false');
+				}
+				else {
+					kotobaElem = $('.kotoba-front .listitems .port');
+				}
+			break;
+
+		}
+		kotobaNum = kotobaElem.length;
+		console.log("kotobanum: "+kotobaNum);
+
+
+		pickRandom(kotobaElem, kotobaNum);
+
 
 	}
+	else {
+
+	}
+}
+
+function stopSpeakRotate() {
+	if(timer == true) {
+		clearInterval(myInterval);
+		timer = false;
+	}
+}
+
+function speakRotate(spoken, rate) {
+	shuffleRates = [1, 0.9, 0.8, 0.7, 0.6, 0.5];
+	rateRand = Math.floor(Math.random()*6);
+	if(rateRand == 6) {
+		rateRand = 5;
+	}
+	speak(spoken, shuffleRates[rateRand], speaker);
 }
 
 function dictatethis2(key) {
@@ -411,7 +605,14 @@ function dictatethis2(key) {
 		pickRand = Math.floor(Math.random()*kotobaNum);
 		kjWord = kjSentElem.eq(pickRand).html();
 		hiraWord = hiraSentElem.eq(pickRand).html();
-		speak(hiraWord, 0.5);
+		speakRotate(hiraWord, 1);
+		// if(timer == true) {
+		// 	clearInterval(myInterval);
+		// 	console.log("eyo");
+		// }
+		// timer = true;
+		// myInterval = setInterval(speakRotate, 10000, hiraWord, 0.7);
+
 
 		if(key=="106") {
 			appendThis = '<div class="port sent-dict">'+
@@ -425,7 +626,7 @@ function dictatethis2(key) {
 				speakHira = $(this).find('.hira-sent-d').html();
 
 				console.log(speakHira);
-				speak(speakHira, 0.5);
+				speak(speakHira, 0.5, speaker);
 
 			});
 		}
@@ -439,6 +640,16 @@ $('.dictate-mode .mode-button').on('click', function() {
 	$('.dictate-mode .mode-button').removeClass('active');
 	$(this).addClass('active');
 });
+$('.dictate-mode .german-enable').on('click', function() {
+	if($('.dictate-mode .german-enable').hasClass('disable')) {
+		$(this).addClass('enable').removeClass('disable').html('DE On');
+
+	}
+	else {
+		$(this).addClass('disable').removeClass('enable').html('DE Off');
+	}
+
+});
 
 $('.manual-mode .mode-button').on('click', function() {
 	manualMode = $(this).html();
@@ -447,10 +658,10 @@ $('.manual-mode .mode-button').on('click', function() {
 		case "ALL":
 		fakekey = 100;
 		break;
-		case "inactive":
+		case "nonDict":
 		fakekey = 103;
 		break;
-		case "active":
+		case "Dict":
 		fakekey = 102;
 		break;
 	}
@@ -467,10 +678,10 @@ function rotator() {
 		case "ALL":
 		fakekey = 100;
 		break;
-		case "inactive":
+		case "nonDict":
 		fakekey = 103;
 		break;
-		case "active":
+		case "Dict":
 		fakekey = 102;
 		break;
 	}
@@ -532,6 +743,8 @@ $('html').keypress(function(e) {
 	//f = 102 keycode = dictate true
 	//g = 103 keycode = dictate false
 	//j = 106 keycode = random sentence
+	//k = 107
+	//s = 115 = dictate enabled
 	console.log(e.keyCode);
 
 	if(e.keyCode == "100" || e.keyCode == "102" || e.keyCode == "103") {
@@ -539,6 +752,12 @@ $('html').keypress(function(e) {
 	}
 	else if(e.keyCode == "106") {
 		dictatethis2(e.keyCode);
+	}
+	else if (e.keyCode == "107") {
+		stopSpeakRotate();
+	}
+	else if (e.keyCode == "115") {
+		dictatethis(e.keyCode);
 	}
 });
 

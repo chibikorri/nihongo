@@ -161,6 +161,7 @@ class datahandler extends Controller
       "active" => $active,
         "status" => $status,
       "lesson" => $lesson,
+      "dictoccur" => 1,
 		 ]);
 
 		return redirect('/datakotoba');
@@ -254,6 +255,27 @@ class datahandler extends Controller
     // return redirect('/kanjicards');
 
     }
+    public function kotobaoccur() {
+      $data = request()->all();
+      $newOccur = $data['newOccur'];
+      $kotobaID = $data['kotobaID'];
+
+      // dd($data);
+      // echo 'points: '.$data['newPoints'].', rank: '.$data['newRank'].', id: '.$data['kanjiID'].', timestamp: '.$newStamp;
+
+
+
+     DB::table('kotobas')
+     ->where('id', $kotobaID)
+      ->update([
+      'dictoccur' => $newOccur
+     ]);
+
+
+    // dd($data);
+    // return redirect('/kanjicards');
+
+    }
     public function kotobastatus() {
       $data = request()->all();
       $status = $data['status'];
@@ -284,7 +306,7 @@ class datahandler extends Controller
 
       if($lesson != "All") {
         DB::table('config')
-        ->where('lesson', "All")
+        ->where('lesson', "-1")
          ->update([
          'status' => 0
         ]);
@@ -294,7 +316,7 @@ class datahandler extends Controller
          ->update([
          'status' => $status
         ]);
-      }
+      }      
 
       if($lesson == "All") {
         DB::table('config')
