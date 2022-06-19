@@ -403,7 +403,7 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 	chance = 1-((totalOccur-thisOccur)/(totalOccur+thisOccur));
 	thisOrigin = kotobaElem_f.eq(pickRand).find('.origin').html();
 	elemState = kotobaElem_f.eq(pickRand).attr('class').split(" ")[1];
-	elemID = kotobaElem_f.eq(pickRand).attr('class').split(" ")[2];
+	elemID = kotobaElem_f.eq(pickRand).attr('class').split(" ")[3];
 	switch(elemState) {
 		case "true":
 		quickSwap = "add";
