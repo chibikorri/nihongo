@@ -296,8 +296,9 @@ $('.kotoba-front .port').mousedown(function(e) {
 
 //active dictate / inactive dictate
 $('.kotoba-front .port .swap').on('click', function() {
-	getId = $(this).parent().parent().attr('class').split(" ")[2];
+	getId = $(this).parent().parent().attr('class').split(" ")[3];
 	getStatus = $(this).parent().parent().attr('class').split(" ")[1];
+	console.log(getId+", "+getStatus);
 	token = $('meta[name="csrf-token"]').attr('content');
 	if(getStatus == "true") {
 		newStatus = 0;
@@ -341,7 +342,7 @@ $('.kotoba-front .port .swap').on('click', function() {
 
 //disabled / enabled
 $('.kotoba-front .port .disable').on('click', function() {
-	getId = $(this).parent().parent().attr('class').split(" ")[2];
+	getId = $(this).parent().parent().attr('class').split(" ")[3];
 	getStatus = $(this).parent().parent().attr('class').split(" ")[1];
 	token = $('meta[name="csrf-token"]').attr('content');
 	if(getStatus == "disabled") {
