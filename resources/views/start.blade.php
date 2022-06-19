@@ -263,7 +263,7 @@ totalOccur = 0;
              curDictCount++;
              </script>
         @elseif ($kotoba->status == 2)
-          <div class="port false disabled {{$kotoba->id}}" style="display: none;">
+          <div class="port none disabled {{$kotoba->id}}" style="display: none;">
             @php
             $add_remove = "Enable";
             $enable_disable = "enable";
