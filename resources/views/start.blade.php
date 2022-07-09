@@ -193,9 +193,9 @@ totalOccur = 0;
        </script>
        <div class="dictate-mode">
          <div>Dictate Mode</div>
-         <div class="mode-button">ALL</div>
-         <div class="mode-button active">Dict</div>
-         <div class="mode-button">nonDict</div>
+         <div class="mode-button">ALL (d)</div>
+         <div class="mode-button active">Dict (f)</div>
+         <div class="mode-button">nonDict(g)</div>
          <div class="german-enable disable">DE Off</div>
        </div>
        <div class="manual-mode">

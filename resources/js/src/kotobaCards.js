@@ -128,20 +128,26 @@ function kotobaCards() {
 
 	$('.button.right').on('click', function() {
 
+		console.log("func");
 		//ajax call
 		token = $('meta[name="csrf-token"]').attr('content');
 		thisRank = parseInt($(this).parent().find('.rank').html());
 		thisStackPosition = parseInt($(this).parent().find('.stackposition').html());
 		thisID = parseInt($(this).parent().find('.id').html());
+		console.log(thisRank+", "+thisStackPosition+", "+thisID);
 
 		if(thisRank < 9) {
 			//rank up
+			console.log("rank up");
 			ranks[thisRank][thisStackPosition].rank = thisRank+1;
 			//push entry to new rank
+			console.log("new rank");
 			ranks[thisRank+1].push(ranks[thisRank][thisStackPosition]);
 			//remove entry from odl rank
+			console.log("remove from old");
 			ranks[thisRank].splice(thisStackPosition, 1);
 			//refresh stackview
+			console.log("stackview");
 			$('.stack-view .stack-'+thisRank+' .counter').html(ranks[thisRank].length);
 			$('.stack-view .stack-'+(thisRank+1)+' .counter').html(ranks[thisRank+1].length);
 

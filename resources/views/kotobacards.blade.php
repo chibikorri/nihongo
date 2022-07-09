@@ -195,7 +195,7 @@
 	</div>
 	<div class="rank rank-8">
 		@foreach($kotobas as $kotoba)
-		@if($kotoba->rank == 5)
+		@if($kotoba->rank == 8)
 		<script>
 
 		ranks[8].push(@json($kotoba));

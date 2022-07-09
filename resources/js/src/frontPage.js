@@ -311,7 +311,7 @@ $('.kotoba-front .port .swap').on('click', function() {
 		$(this).parent().parent().addClass("true").removeClass("false");
 		  $('.kotoba-front .curDictCount').html(curDictCount);
 	}
-	else if(getStatus == "disabled") {
+	else if(getStatus == "none") {
 		newStatus = 1;
 		$(this).parent().parent().addClass("true").removeClass("false");
 		 $('.kotoba-front .curDictCount').html(curDictCount);
@@ -543,6 +543,7 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 function dictatethis(key) {
 	if(kotobashuffle == "on") {
 		//get length
+		noStack = false;
 		switch(key) {
 			case 100:
 			kotobaElem = $('.kotoba-front .listitems .port');
@@ -555,7 +556,8 @@ function dictatethis(key) {
 					kotobaElem = $('.kotoba-front .listitems .port.true');
 				}
 				else {
-					kotobaElem = $('.kotoba-front .listitems .port');
+					// kotobaElem = $('.kotoba-front .listitems .port');
+					noStack = true;
 				}
 			break;
 			case 102:
@@ -563,16 +565,22 @@ function dictatethis(key) {
 					kotobaElem = $('.kotoba-front .listitems .port.false');
 				}
 				else {
-					kotobaElem = $('.kotoba-front .listitems .port');
+					// kotobaElem = $('.kotoba-front .listitems .port');
+					noStack = true;
 				}
 			break;
 
 		}
-		kotobaNum = kotobaElem.length;
-		console.log("kotobanum: "+kotobaNum);
+		if(noStack == false) {
+			kotobaNum = kotobaElem.length;
+			console.log("kotobanum: "+kotobaNum);
 
+			pickRandom(kotobaElem, kotobaNum);
+		}
+		else {
+			$('.dictateitems').append("<div>no items added. please use a different method</div>");
+		}
 
-		pickRandom(kotobaElem, kotobaNum);
 
 
 	}
