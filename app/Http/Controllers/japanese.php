@@ -15,6 +15,18 @@ class japanese extends Controller
       ->orderBy('lesson')
       ->get();
 
+      $catalog = array();
+      foreach($config as $value) {
+        if(!array_key_exists($value->category, $catalog)) {
+          $catalog[$value->category] = array();
+          array_push($catalog[$value->category], $value);
+        }
+        else {
+          array_push($catalog[$value->category], $value);
+        }
+
+      }
+
       foreach($config as $value) {
         if($value->status == "1") {
           array_push($configArray, $value->lesson);
@@ -78,6 +90,7 @@ class japanese extends Controller
             'activeLesson' =>   $activeLesson,
             "configArray" => $configArray,
             'sorted' => $sortkotoba,
+            'catalog' => $catalog
             ]);
 
 

@@ -278,7 +278,7 @@ class datahandler extends Controller
     }
     public function kotobastatus() {
       $data = request()->all();
-      $status = $data['status'];
+      $rank = $data['rank'];
       $kotoba = $data['kotobaID'];
 
       // dd($data);
@@ -289,7 +289,7 @@ class datahandler extends Controller
      DB::table('kotobas')
      ->where('id', $kotoba)
       ->update([
-      'status' => $status
+      'rank' => $rank
      ]);
 
 
@@ -316,7 +316,7 @@ class datahandler extends Controller
          ->update([
          'status' => $status
         ]);
-      }      
+      }
 
       if($lesson == "All") {
         DB::table('config')

@@ -123,23 +123,25 @@ $('.kotoba-front .ui .show').on('click', function() {
 	thisClass = $(this).attr('class').split(" ")[1];
 	thisParent = $('.kotoba-front');
 
-	// alert(thisParent);
+	console.log(thisClass);
 
 	if(thisClass == "all") {
+		console.log("!");
 		thisParent.find('.port').show();
 
 	}
 	else {
 		if(thisClass == "true") {
-			thisParent.find('.port.true').show();
-			thisParent.find('.port.false').hide();
-			thisParent.find('.port.disabled').hide();
+			thisParent.find('.the-list').show();
+			// thisParent.find('.port.false').hide();
+			// thisParent.find('.port.disabled').hide();
 
 		}
 		else if(thisClass == "false") {
-			thisParent.find('.port.true').hide();
-			thisParent.find('.port.false').show();
-			thisParent.find('.port.disabled').hide();
+			thisParent.find('.the-list').hide();
+			// thisParent.find('.port.true').hide();
+			// thisParent.find('.port.false').show();
+			// thisParent.find('.port.disabled').hide();
 		}
 		else if(thisClass == "disabled") {
 			thisParent.find('.port.true').hide();
@@ -206,6 +208,28 @@ $('.kanji-front .port').mousedown(function(e) {
 //
 // });
 
+$('.expander').on('click', function() {
+	if($('.con.filter .inner').hasClass("hidden")) {
+		$('.con.filter .inner').removeClass('hidden');
+	}
+	else {
+		$('.con.filter .inner').addClass('hidden');
+	}
+});
+
+$('.catbox h1').on('click', function() {
+	if($(this).closest('.catbox').hasClass("hidden")) {
+		$(this).closest('.catbox').removeClass('hidden');
+	}
+	else {
+		$(this).closest('.catbox').addClass('hidden');
+	}
+});
+
+$('.reload-btn').on('click', function() {
+	location.reload();
+});
+
 $('.lesson-button').on('click', function() {
 
 	getLesson = $(this).attr('class').split(" ")[1];
@@ -215,9 +239,11 @@ $('.lesson-button').on('click', function() {
 	//  alert(getLesson);
 	if($(this).hasClass('on')) {
 			getStatus = 0;
+			$(this).removeClass("on");
 	}
 	else {
 		getStatus = 1;
+		$(this).addClass("on");
 	}
 	// getStatus = $(this).attr('class').split(" ")[1];
 	token = $('meta[name="csrf-token"]').attr('content');
@@ -237,7 +263,7 @@ $('.lesson-button').on('click', function() {
 		success: function(response) {
 			console.log('success');
 			console.log(response);
-			location.reload();
+			// location.reload();
 			// $('form.id-'+id).hide();
 		},
 		error: function(response) {
@@ -402,7 +428,8 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 	randwordMeaning = kotobaElem_f.eq(pickRand).find('.meaning').html();
 	thisOccur = kotobaElem_f.eq(pickRand).find('.thisOccur').html();
 	chance = 1-((totalOccur-thisOccur)/(totalOccur+thisOccur));
-	thisOrigin = kotobaElem_f.eq(pickRand).find('.origin').html();
+	thisOrigin = kotobaElem_f.eq(pickRand).find('.l-digit').html();
+	thisRank = kotobaElem_f.eq(pickRand).find('.current-rank').html();
 	elemState = kotobaElem_f.eq(pickRand).attr('class').split(" ")[1];
 	elemID = kotobaElem_f.eq(pickRand).attr('class').split(" ")[3];
 	switch(elemState) {
@@ -429,19 +456,41 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 		}
 		dictCount++;
 
-		appendThis = '<div class="port dict-'+dictCount+' '+elemID+' dict-'+elemState+'">'+
-		'<div class="quick-btn-con">'+
-		'<div class="quick-btn '+quickSwap+'">'+quickSwap+'</div><div class="quick-btn disabler">Disable</div>'+
-		'</div>'+
-		'<div class="dictorigin">'+thisOrigin+'</div>'+
-		'<div class="visib f30 kanji"><span class="dictcount">'+dictCount+'</span> '+randWordKanji+'</div>'+
+		appendThis = '<div class="port true '+elemID+' dict-'+dictCount+' dict-'+elemState+' r-'+thisRank+'">'+
+		'<div class="lesson-tag"><div class="dictcount">'+dictCount+'</div><div>L'+thisOrigin+'</div></div>'+
+		'<div class="the-kanji">'+
+		'<div class="visib f30 kanji"> '+randWordKanji+'</div>'+
 		'<div class="hidden">'+
 		'<div class="inner">'+
 		'<div class="tts kana">'+randWord+'</div>'+
 		'<div class="">'+randwordMeaning+'</div>'+
 		'</div>'+
 		'</div>'+
+		'</div>'+
+		'<div class="ranking-ui">'+
+			'<div class="the-rank">'+
+				'<div><img style="" src="assets/img/stack.png"></div>'+
+				'<div class="current-rank">'+thisRank+'</div>'+
+			'</div>'+
+			'<div class="rank-mover">'+
+				'<div class="rank-up mover">▲</div>'+
+				'<div class="rank-down mover">▼</div>'+
+			'</div>'+
 		'</div>';
+
+		// appendThis = '<div class="port true dict-'+dictCount+' '+elemID+' dict-'+elemState+'">'+
+		// '<div class="quick-btn-con">'+
+		// '<div class="quick-btn '+quickSwap+'">'+quickSwap+'</div><div class="quick-btn disabler">Disable</div>'+
+		// '</div>'+
+		// '<div class="dictorigin">'+thisOrigin+'</div>'+
+		// '<div class="visib f30 kanji"><span class="dictcount">'+dictCount+'</span> '+randWordKanji+'</div>'+
+		// '<div class="hidden">'+
+		// '<div class="inner">'+
+		// '<div class="tts kana">'+randWord+'</div>'+
+		// '<div class="">'+randwordMeaning+'</div>'+
+		// '</div>'+
+		// '</div>'+
+		// '</div>';
 
 		newOccur = parseInt(thisOccur)+1;
 		console.log("new:"+ newOccur);
@@ -463,7 +512,9 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 			success: function(response) {
 				console.log('success');
 				console.log(response);
-				kotobaElem_f.eq(pickRand).find('.thisOccur').html(newOccur);
+				// kotobaElem_f.eq(pickRand).find('.thisOccur').html(newOccur);
+				kotobaElem_f.eq(pickRand).remove();
+
 				// $('form.id-'+id).hide();
 			},
 			error: function(response) {
@@ -487,46 +538,116 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 
 		});
 
-		$('.port.dict-'+dictCount+' .quick-btn').on('click', function() {
-			//1. find id
-			dictElemID = $(this).parent().parent().attr('class').split(" ")[2];
-			dictElemState = $(this).attr('class').split(" ")[1];
-			console.log(dictElemState+", "+dictElemID);
-			switch(dictElemState) {
-				case "add":
-				$('.listitems .port.'+dictElemID).removeClass("true").removeClass("disabled").addClass("false");
-				newStatus = 0;
-				break;
-				case "remove":
-				$('.listitems .port.'+dictElemID).addClass("true").removeClass("disabled").removeClass("false");
-				newStatus = 1;
-				break;
-				case "disabler":
-				$('.listitems .port.'+dictElemID).removeClass("true").addClass("disabled").removeClass("false");
-				newStatus = 2;
-				break;
-			}
-			$.ajax({
-				url:"/kotobastatus",
-				type: "post",
-				data: {
-					"_token": token,
-					"status": newStatus,
-					"kotobaID": dictElemID
+		// $('.port.dict-'+dictCount+' .quick-btn').on('click', function() {
+		// 	//1. find id
+		// 	dictElemID = $(this).parent().parent().attr('class').split(" ")[2];
+		// 	dictElemState = $(this).attr('class').split(" ")[1];
+		// 	console.log(dictElemState+", "+dictElemID);
+		// 	switch(dictElemState) {
+		// 		case "add":
+		// 		$('.listitems .port.'+dictElemID).removeClass("true").removeClass("disabled").addClass("false");
+		// 		newStatus = 0;
+		// 		break;
+		// 		case "remove":
+		// 		$('.listitems .port.'+dictElemID).addClass("true").removeClass("disabled").removeClass("false");
+		// 		newStatus = 1;
+		// 		break;
+		// 		case "disabler":
+		// 		$('.listitems .port.'+dictElemID).removeClass("true").addClass("disabled").removeClass("false");
+		// 		newStatus = 2;
+		// 		break;
+		// 	}
+		// 	$.ajax({
+		// 		url:"/kotobastatus",
+		// 		type: "post",
+		// 		data: {
+		// 			"_token": token,
+		// 			"status": newStatus,
+		// 			"kotobaID": dictElemID
+		//
+		// 		},
+		// 		cache: false,
+		// 		success: function(response) {
+		// 			console.log('success');
+		// 			console.log(response);
+		// 			$('.dictateitems .port.'+dictElemID).find('.quick-btn').remove();
+		// 			// $('form.id-'+id).hide();
+		// 		},
+		// 		error: function(response) {
+		// 			console.log('fail');
+		// 			console.log(response);
+		// 		}
+		// 	});
+		//
+		//
+		// });
+		$('.port.dict-'+dictCount+' .rank-mover .mover').on('click', function() {
+			console.log("func");
+			moveTo = $(this).attr('class').split(" ")[0]; //up or down
+			getID = $(this).parent().parent().parent().attr('class').split(" ")[2];
+			getRank = parseInt($(this).parent().parent().find('.the-rank .current-rank').html());
+			saveRank = false;
+			console.log(moveTo);
+			console.log(getRank);
+			if(moveTo == "rank-up") {
+				if(getRank < 9) {
+					console.log("found");
+					newRank = getRank+1;
+					$('.dictateitems .port.'+getID).find('.current-rank').html(newRank);
+					$('.dictateitems .port.'+getID).removeClass('r-'+getRank).addClass('r-'+newRank);
+					// oldRankCount = $('.stack.stack-'+getRank+' .counter').html();
+					// if(oldRankCount > 0) {
+					// 	oldRankCount --;
+					// 	$('.stack.stack-'+getRank+' .counter').html(oldRankCount);
+					// }
 
-				},
-				cache: false,
-				success: function(response) {
-					console.log('success');
-					console.log(response);
-					$('.dictateitems .port.'+dictElemID).find('.quick-btn').remove();
-					// $('form.id-'+id).hide();
-				},
-				error: function(response) {
-					console.log('fail');
-					console.log(response);
+
+					// $('.listitems .port.'+getID).find('.current-rank').html(newRank);
+					// $('.listitems .port.'+getID).removeClass('r-'+getRank).addClass('r-'+newRank);
+					saveRank = true;
 				}
-			});
+
+			}
+			else if(moveTo == "rank-down") {
+				if(getRank > 0) {
+					console.log("found");
+					newRank = getRank-1;
+					$('.dictateitems .port.'+getID).find('.current-rank').html(newRank);
+					$('.listitems .port.'+getID).find('.current-rank').html(newRank);
+					// oldRankCount = $('.stack.stack-'+getRank+' .counter').html();
+					// if(oldRankCount > 0) {
+					// 	oldRankCount --;
+					// 	$('.stack.stack-'+getRank+' .counter').html(oldRankCount);
+					// }
+					saveRank = true;
+				}
+			}
+
+			//saveRank
+			if(saveRank == true) {
+					$.ajax({
+						url:"/kotobastatus",
+						type: "post",
+						data: {
+							"_token": token,
+							"rank": newRank,
+							"kotobaID": getID
+
+						},
+						cache: false,
+						success: function(response) {
+							console.log('success');
+							console.log(response);
+							$('.dictateitems .port.'+getID).find('.rank-mover').remove();
+							// $('.listitems .port.'+getID).remove();
+							// $('form.id-'+id).hide();
+						},
+						error: function(response) {
+							console.log('fail');
+							console.log(response);
+						}
+					});
+			}
 
 
 		});
@@ -541,44 +662,79 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 }
 
 function dictatethis(key) {
+	rankPick = 0;
 	if(kotobashuffle == "on") {
 		//get length
+
 		noStack = false;
 		switch(key) {
-			case 100:
-			kotobaElem = $('.kotoba-front .listitems .port');
+			case 48:
+			//0
+			rankPick = 0;
 			break;
-			case 115:
-			kotobaElem = $('.kotoba-front .listitems .port.enabled');
+			case 49:
+			//1
+			rankPick = 1;
 			break;
-			case 103:
-				if($('.kotoba-front .listitems .port.true').length) {
-					kotobaElem = $('.kotoba-front .listitems .port.true');
-				}
-				else {
-					// kotobaElem = $('.kotoba-front .listitems .port');
-					noStack = true;
-				}
+			case 50:
+			//2
+			rankPick = 2;
 			break;
-			case 102:
-				if($('.kotoba-front .listitems .port.false').length) {
-					kotobaElem = $('.kotoba-front .listitems .port.false');
-				}
-				else {
-					// kotobaElem = $('.kotoba-front .listitems .port');
-					noStack = true;
-				}
+			case 51:
+			//3
+			rankPick = 3;
+			break;
+			case 52:
+			//4
+			rankPick = 4;
+			break;
+			case 53:
+			//5
+			rankPick = 5;
+			break;
+			case 54:
+			//6
+			rankPick = 6;
+			break;
+			case 55:
+			//7
+			rankPick = 7;
+			break;
+			case 56:
+			//8
+			rankPick = 8;
+			break;
+			case 57:
+			//9
+			rankPick = 9;
 			break;
 
+
 		}
+			if(key == "special") {
+				kotobaElem = $('.kotoba-front .listitems .port');
+			}
+
+			else if($('.kotoba-front .listitems .port.r-'+rankPick).length) {
+				console.log(rankPick);
+				kotobaElem = $('.kotoba-front .listitems .port.r-'+rankPick);
+			}
+			else {
+					noStack = true;
+			}
 		if(noStack == false) {
 			kotobaNum = kotobaElem.length;
 			console.log("kotobanum: "+kotobaNum);
 
 			pickRandom(kotobaElem, kotobaNum);
+			oldRankCount = $('.stack.stack-'+rankPick+' .counter').html();
+			if(oldRankCount > 0) {
+				oldRankCount --;
+				$('.stack.stack-'+rankPick+' .counter').html(oldRankCount);
+			}
 		}
 		else {
-			$('.dictateitems').append("<div>no items added. please use a different method</div>");
+			$('.dictateitems').find(".hl").after('<div class="noitem">no items in that stable. please use a different one</div>');
 		}
 
 
@@ -623,7 +779,7 @@ function dictatethis2(key) {
 		// myInterval = setInterval(speakRotate, 10000, hiraWord, 0.7);
 
 
-		if(key=="106") {
+		// if(key=="106") {
 			appendThis = '<div class="port sent-dict">'+
 			'<div class="kanji-sent-d">'+kjWord+'</div>'+
 			'<div style="display: none;" class="hira-sent-d">'+hiraWord+'</div>'+
@@ -638,7 +794,7 @@ function dictatethis2(key) {
 				speak(speakHira, 0.5, speaker);
 
 			});
-		}
+		// }
 	}
 	else {
 
@@ -683,18 +839,18 @@ function rotator() {
 	//g = 103 keycode = dictate false
 	dictateMode = $('.dictate-mode .mode-button.active').html();
 	console.log(dictateMode);
-	switch(dictateMode) {
-		case "ALL":
-		fakekey = 100;
-		break;
-		case "nonDict":
-		fakekey = 103;
-		break;
-		case "Dict":
-		fakekey = 102;
-		break;
-	}
-	dictatethis(fakekey);
+	// switch(dictateMode) {
+	// 	case "ALL":
+	// 	fakekey = 100;
+	// 	break;
+	// 	case "nonDict":
+	// 	fakekey = 103;
+	// 	break;
+	// 	case "Dict":
+	// 	fakekey = 102;
+	// 	break;
+	// }
+	dictatethis("special");
 }
 function stopRotator() {
 	clearInterval(myInterval);
@@ -756,18 +912,45 @@ $('html').keypress(function(e) {
 	//s = 115 = dictate enabled
 	console.log(e.keyCode);
 
-	if(e.keyCode == "100" || e.keyCode == "102" || e.keyCode == "103") {
+	parseKey = parseInt(e.keyCode);
+	console.log("parsed: "+parseKey);
+
+	if(parseKey >=48 || parseKey <=57) {
+		console.log("if reached");
 		dictatethis(e.keyCode);
 	}
-	else if(e.keyCode == "106") {
-		dictatethis2(e.keyCode);
-	}
-	else if (e.keyCode == "107") {
-		stopSpeakRotate();
-	}
-	else if (e.keyCode == "115") {
-		dictatethis(e.keyCode);
-	}
+
+	// if(e.keyCode == "100" || e.keyCode == "102" || e.keyCode == "103") {
+	// 	dictatethis(e.keyCode);
+	// }
+	 else if(e.keyCode == "106") {
+	 	dictatethis2(e.keyCode);
+	 }
+	// else if (e.keyCode == "107") {
+	// 	stopSpeakRotate();
+	// }
+	// else if (e.keyCode == "115") {
+	// 	dictatethis(e.keyCode);
+	// }
+});
+
+// $('.rank-mover .mover').on('click', function() {
+// 	console.log("func");
+// 	moveTo = $(this).attr('class').split(" ")[0]; //up or down
+// 	getID = $(this).parent().parent().parent().attr('class').split(" ")[3];
+// 	console.log(getID);
+// 	if(moveTo == "rank-up") {
+// 		$('.port.'+getID).find('.current-rank').html("x");
+// 	}
+// 	else if(moveTo == "rank-down") {
+// 		$('.port.'+getID).find('.current-rank').html("x");
+// 	}
+//
+//
+// });
+
+$('.kotoba-front .listitems .hl').on('click', function() {
+	// $('.kotoba-front .listitems .the-list').toggle();
 });
 
 

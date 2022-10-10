@@ -317,6 +317,107 @@ nav .title a {
   align-items: center;
   justify-content: center;
 }
+.filter {
+  padding: 10px;
+}
+.filter .expander,
+.filter .reload-btn {
+  display: inline-block;
+  width: 200px;
+  background: #7bde7b;
+  padding: 10px;
+  margin: 10px;
+  color: #000;
+}
+.filter .expander:hover,
+.filter .reload-btn:hover {
+  cursor: pointer;
+  background: #58dc58;
+}
+.filter .inner {
+  border-top: 1px dashed white;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.filter .inner.hidden {
+  display: none;
+}
+.filter .inner .spacer {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+.filter .inner .catbox {
+  display: block;
+  grid-template-rows: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px dashed white;
+}
+.filter .inner .catbox.all-toggle {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  display: block;
+}
+.filter .inner .catbox.all-toggle .lesson-button {
+  display: inline-block;
+  width: 200px;
+}
+.filter .inner .catbox .lesson-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+.filter .inner .catbox.hidden .lesson-button {
+  display: none;
+}
+.filter .inner .catbox h1 {
+  font-size: 12px;
+}
+.filter .inner .catbox h1:hover {
+  cursor: pointer;
+}
+.filter .inner .lesson-button {
+  background-color: red;
+  margin: 0;
+  padding: 2px;
+  height: 30px;
+  text-align: center;
+  font-size: 10px;
+}
+.filter .inner .lesson-button.on {
+  background-color: green;
+}
+.filter .inner .lesson-button:hover {
+  cursor: pointer;
+  background-color: blue;
+}
+.stack-view {
+  width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #b33, #6b0);
+}
+.stack-view .stack {
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  text-align: center;
+  padding: 5px;
+}
+.stack-view .stack:hover {
+  background: #333;
+  cursor: pointer;
+}
+.stack-view .stack .icon img {
+  width: 30px;
+  filter: invert();
+}
 .nav {
   padding: 5px 0;
 }
@@ -350,24 +451,8 @@ nav .title a {
 .con.start .links a:hover {
   background: #338;
 }
-.filter .inner {
-  display: flex;
-  padding: 10px;
-}
-.filter .inner .lesson-button {
-  background-color: red;
-  margin: 0 5px;
-  padding: 2px;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-}
-.filter .inner .lesson-button.on {
-  background-color: green;
-}
-.filter .inner .lesson-button:hover {
-  cursor: pointer;
-  background-color: blue;
+.main-wrapper {
+  display: grid;
 }
 .toggle-modes {
   padding: 0px 20px;
@@ -414,6 +499,9 @@ nav .title a {
 .frontpage .kanji-front {
   background: #a00;
   display: none;
+}
+.frontpage .kanji-front a {
+  color: black;
 }
 .frontpage .kanji-front .title {
   position: relative;
@@ -541,17 +629,82 @@ nav .title a {
 }
 .frontpage .kotoba-front .view {
   padding: 10px;
-  font-size: 20px;
+  font-size: 36px;
   color: #111;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 5px;
 }
+.frontpage .kotoba-front .view .noitem {
+  background: #faa;
+  padding: 10px;
+  margin-bottom: 10px;
+}
 .frontpage .kotoba-front .view .port {
   position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr 60px;
   text-align: center;
   background: #ddd;
   margin-bottom: 10px;
+}
+.frontpage .kotoba-front .view .port.r-0 .the-rank {
+  background-color: #ac4132;
+}
+.frontpage .kotoba-front .view .port.r-1 .the-rank {
+  background-color: #a74d2e;
+}
+.frontpage .kotoba-front .view .port.r-2 .the-rank {
+  background-color: #9f5c29;
+}
+.frontpage .kotoba-front .view .port.r-3 .the-rank {
+  background-color: #996924;
+}
+.frontpage .kotoba-front .view .port.r-4 .the-rank {
+  background-color: #92771f;
+}
+.frontpage .kotoba-front .view .port.r-5 .the-rank {
+  background-color: #8b831a;
+}
+.frontpage .kotoba-front .view .port.r-6 .the-rank {
+  background-color: #8c831a;
+}
+.frontpage .kotoba-front .view .port.r-7 .the-rank {
+  background-color: #859015;
+}
+.frontpage .kotoba-front .view .port.r-8 .the-rank {
+  background-color: #78ab0b;
+}
+.frontpage .kotoba-front .view .port.r-9 .the-rank {
+  background-color: #72b807;
+}
+.frontpage .kotoba-front .view .port .lesson-tag {
+  font-size: 14px;
+}
+.frontpage .kotoba-front .view .port .ranking-ui {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+}
+.frontpage .kotoba-front .view .port .ranking-ui .current-rank {
+  font-size: 14px;
+}
+.frontpage .kotoba-front .view .port .ranking-ui .the-rank {
+  font-size: 14px;
+  text-align: center;
+}
+.frontpage .kotoba-front .view .port .ranking-ui .the-rank img {
+  width: 20px;
+}
+.frontpage .kotoba-front .view .port .ranking-ui .rank-mover {
+  font-size: 20px;
+}
+.frontpage .kotoba-front .view .port .ranking-ui .rank-mover .mover {
+  cursor: pointer;
+  background: red;
+}
+.frontpage .kotoba-front .view .port .ranking-ui .rank-mover .mover:hover {
+  background: green;
 }
 .frontpage .kotoba-front .view .port.true {
   opacity: 1;
@@ -573,7 +726,7 @@ nav .title a {
 }
 .frontpage .kotoba-front .view .port .swap-disable {
   display: grid;
-  grid-template-columns: 20px 1fr 1fr;
+  grid-template-columns: 20px 40px 1fr 1fr;
   grid-column-gap: 5px;
   text-align: center;
 }

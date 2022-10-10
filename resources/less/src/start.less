@@ -1,3 +1,132 @@
+@green: #7bde7b;
+@greenHover: #58dc58;
+@fontBlack: #000;
+
+.filter {
+  padding: 10px;
+  .expander, .reload-btn {
+    display: inline-block;
+    width: 200px;
+    background: @green;
+    padding: 10px;
+    margin: 10px;
+    color: @fontBlack;
+    &:hover {
+      cursor: pointer;
+      background: @greenHover;
+    }
+  }
+  .inner {
+    border-top: 1px dashed white;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    &.hidden {
+      display: none;
+    }
+    .spacer {
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+    .catbox {
+      &.all-toggle {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        display: block;
+        .lesson-button {
+          display: inline-block;
+          width: 200px;
+        }
+      }
+      display: block;
+      // grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px dashed white;
+      // align-items: center;
+      // justify-content: center;
+      .lesson-group {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+      }
+      &.hidden {
+        .lesson-button {
+          display: none;
+        }
+      }
+      h1 {
+        // grid-column-start: 1;
+        // grid-column-end: 4;
+        font-size: 12px;
+        &:hover {
+          cursor: pointer;
+
+        }
+      }
+
+    }
+    .lesson-button {
+      // display: none;
+      background-color: red;
+      margin: 0;
+      padding: 2px;
+      // width: 50px;
+      height: 30px;
+      text-align: center;
+      font-size: 10px;
+      &.on {
+        background-color: green;
+      }
+      &:hover {
+        cursor: pointer;
+        background-color: blue;
+      }
+    }
+  }
+}
+
+.stack-view {
+  width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #b33, #6b0);
+  .stack {
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+
+    text-align: center;
+    padding: 5px;
+    &:hover {
+      background: #333;
+      cursor:pointer;  }
+    // &.stack-0 {   }
+    // &.stack-1 { &:hover { background: #333; cursor:pointer;  }  }
+    // &.stack-2 { &:hover { background: #333; cursor:pointer;  }  }
+    // &.stack-3 { &:hover { background: #333; cursor:pointer;  }  }
+    // &.stack-4 { &:hover { background: #333; cursor:pointer;  }  }
+    // &.stack-5 { &:hover { background: #333; cursor:pointer;  }  }
+    // &.stack-6 { &:hover { background: #333; cursor:pointer;  }  }
+    // &.stack-7 { &:hover { background: #333; cursor:pointer;  }  }
+    // &.stack-8 { &:hover { background: #333; cursor:pointer;  }  }
+    // &.stack-9 { &:hover { background: #333; cursor:pointer;  }  }
+
+    .icon {
+      img {
+        width: 30px;
+        filter: invert();
+      }
+    }
+  }
+}
+
 .nav {
   padding:5px 0;
   &.module {
@@ -44,27 +173,12 @@
   }
 }
 
-.filter {
-  .inner {
-    display: flex;
-    padding: 10px;
-    .lesson-button {
-      background-color: red;
-      margin: 0 5px;
-      padding: 2px;
-      width: 30px;
-      height: 30px;
-      text-align: center;
-      &.on {
-        background-color: green;
-      }
-      &:hover {
-        cursor: pointer;
-        background-color: blue;
-      }
-    }
-  }
+.main-wrapper {
+  display: grid;
+  // grid-template-columns: 1fr 10fr;
 }
+
+
 
 .toggle-modes {
   padding: 0px 20px;
@@ -128,6 +242,9 @@
   .kanji-front {
     background: #a00;
     display: none;
+    a {
+      color: black;
+    }
     .title {
       position: relative;
       padding: 5px;
@@ -169,6 +286,7 @@
         padding: 10px;
         font-size: 30px;
         color: #111;
+
         .port {
           &.true {
               opacity: 1;
@@ -275,11 +393,17 @@
     }
     .view {
         padding: 10px;
-        font-size: 20px;
+        font-size: 36px;
         color: #111;
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 5px;
+        .noitem {
+          background: #faa;
+          padding: 10px;
+          margin-bottom: 10px;
+
+        }
         .f20 {
           // font-size: 20px;
         }
@@ -288,6 +412,94 @@
         }
         .port {
           position: relative;
+          display: grid;
+          grid-template-columns: 40px 1fr 60px;
+          &.r-0 {
+              .the-rank {
+                background-color: #ac4132;
+              }
+          }
+          &.r-1 {
+              .the-rank {
+                background-color: #a74d2e;
+              }
+          }
+          &.r-2 {
+              .the-rank {
+                background-color: #9f5c29;
+              }
+          }
+          &.r-3 {
+              .the-rank {
+                background-color: #996924;
+              }
+          }
+          &.r-4 {
+              .the-rank {
+                background-color: #92771f;
+              }
+          }
+          &.r-5 {
+              .the-rank {
+                background-color: #8b831a;
+              }
+          }
+          &.r-6 {
+              .the-rank {
+                background-color: #8c831a;
+              }
+          }
+          &.r-7 {
+              .the-rank {
+                background-color: #859015;
+              }
+          }
+          &.r-8 {
+              .the-rank {
+                background-color: #78ab0b;
+              }
+          }
+          &.r-9 {
+              .the-rank {
+                background-color: #72b807;
+              }
+          }
+
+          .dictcount {
+
+          }
+          .lesson-tag {
+              font-size: 14px;
+          }
+          .ranking-ui {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-content: center;
+            .current-rank {
+              font-size: 14px;
+            }
+            .the-rank {
+              font-size: 14px;
+              // background: gray;
+              text-align: center;
+              img {
+                // margin-right: 5px;
+                // display: inline-block;
+                 width: 20px;
+              }
+
+            }
+            .rank-mover {
+              font-size: 20px;
+              .mover {
+                cursor: pointer;
+                background: red;
+                &:hover {
+                  background: green;
+                }
+              }
+            }
+          }
           &.true {
               opacity: 1;
           }
@@ -316,7 +528,7 @@
             // right: 0;
             // background: red;
             display: grid;
-            grid-template-columns: 20px 1fr 1fr;
+            grid-template-columns: 20px 40px 1fr 1fr;
             grid-column-gap: 5px;
             text-align: center;
             .origin {
