@@ -421,17 +421,20 @@ $('.sentences-front .port').mousedown(function(e) {
 
 });
 
-function pickRandom(kotobaElem_f, kotobaNum_f) {
+function pickRandom(kotobaElem_f, kotobaNum_f, kotobaElemString_f) {
+	console.log("string: "+kotobaElemString_f);
+	// $('.kotoba-front .listitems .port.r-'+rankPick);
 	pickRand = Math.floor(Math.random()*kotobaNum_f);
-	randWord = kotobaElem_f.eq(pickRand).find('.kana').html();
-	randWordKanji = kotobaElem_f.eq(pickRand).find('.kanji').html();
-	randwordMeaning = kotobaElem_f.eq(pickRand).find('.meaning').html();
-	thisOccur = kotobaElem_f.eq(pickRand).find('.thisOccur').html();
+	pickedElem = $('.kotoba-front .listitems .port'+kotobaElemString_f);
+	randWord = pickedElem.eq(pickRand).find('.kana').html();
+	randWordKanji = pickedElem.eq(pickRand).find('.kanji').html();
+	randwordMeaning = pickedElem.eq(pickRand).find('.meaning').html();
+	thisOccur = pickedElem.eq(pickRand).find('.thisOccur').html();
 	chance = 1-((totalOccur-thisOccur)/(totalOccur+thisOccur));
-	thisOrigin = kotobaElem_f.eq(pickRand).find('.l-digit').html();
-	thisRank = kotobaElem_f.eq(pickRand).find('.current-rank').html();
-	elemState = kotobaElem_f.eq(pickRand).attr('class').split(" ")[1];
-	elemID = kotobaElem_f.eq(pickRand).attr('class').split(" ")[3];
+	thisOrigin = pickedElem.eq(pickRand).find('.l-digit').html();
+	thisRank = pickedElem.eq(pickRand).find('.current-rank').html();
+	elemState = pickedElem.eq(pickRand).attr('class').split(" ")[1];
+	elemID = pickedElem.eq(pickRand).attr('class').split(" ")[3];
 	switch(elemState) {
 		case "true":
 		quickSwap = "add";
@@ -445,6 +448,7 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 	}
 	// chance = 1-((totalOccur-100)/(totalOccur+100));
 	roll = Math.random();
+	console.log("random word");
 	console.log(randWord);
 	console.log("occur: "+chance+', roll: '+roll);
 
@@ -494,7 +498,7 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 
 		newOccur = parseInt(thisOccur)+1;
 		console.log("new:"+ newOccur);
-		getId = kotobaElem_f.eq(pickRand).attr('class').split(" ")[2] ;
+		getId = pickedElem.eq(pickRand).attr('class').split(" ")[2] ;
 		console.log("id "+getId);
 		token = $('meta[name="csrf-token"]').attr('content');
 
@@ -513,7 +517,8 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 				console.log('success');
 				console.log(response);
 				// kotobaElem_f.eq(pickRand).find('.thisOccur').html(newOccur);
-				kotobaElem_f.eq(pickRand).remove();
+				pickedElem.eq(pickRand).remove();
+					$('html').on('keypress', pick_a_word);
 
 				// $('form.id-'+id).hide();
 			},
@@ -639,6 +644,7 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 							console.log('success');
 							console.log(response);
 							$('.dictateitems .port.'+getID).find('.rank-mover').remove();
+
 							// $('.listitems .port.'+getID).remove();
 							// $('form.id-'+id).hide();
 						},
@@ -655,12 +661,13 @@ function pickRandom(kotobaElem_f, kotobaNum_f) {
 	}
 	else {
 		console.log('reroll');
-		pickRandom(kotobaElem_f, kotobaNum_f);
+		pickRandom(kotobaElem_f, kotobaNum_f, kotobaElemString_f);
 	}
 
 
 }
 
+// for keypresses 0 - 9
 function dictatethis(key) {
 	rankPick = 0;
 	if(kotobashuffle == "on") {
@@ -713,11 +720,13 @@ function dictatethis(key) {
 		}
 			if(key == "special") {
 				kotobaElem = $('.kotoba-front .listitems .port');
+				kotobaElemString = "";
 			}
 
 			else if($('.kotoba-front .listitems .port.r-'+rankPick).length) {
 				console.log(rankPick);
 				kotobaElem = $('.kotoba-front .listitems .port.r-'+rankPick);
+				kotobaElemString = ".r-"+rankPick;
 			}
 			else {
 					noStack = true;
@@ -726,7 +735,7 @@ function dictatethis(key) {
 			kotobaNum = kotobaElem.length;
 			console.log("kotobanum: "+kotobaNum);
 
-			pickRandom(kotobaElem, kotobaNum);
+			pickRandom(kotobaElem, kotobaNum, kotobaElemString);
 			oldRankCount = $('.stack.stack-'+rankPick+' .counter').html();
 			if(oldRankCount > 0) {
 				oldRankCount --;
@@ -792,6 +801,7 @@ function dictatethis2(key) {
 
 				console.log(speakHira);
 				speak(speakHira, 0.5, speaker);
+				$('html').on('keypress', pick_a_word);
 
 			});
 		// }
@@ -903,16 +913,22 @@ $('.sentences-front .playstop').on('click', function()  {
 	}
 });
 
-$('html').keypress(function(e) {
+$('html').on('keypress', pick_a_word);
+
+function pick_a_word(e) {
+	$('html').off('keypress');
+	e.preventDefault();
 	//d = 100 keycode = dictate all
 	//f = 102 keycode = dictate true
 	//g = 103 keycode = dictate false
 	//j = 106 keycode = random sentence
 	//k = 107
 	//s = 115 = dictate enabled
+	console.log("keypress");
 	console.log(e.keyCode);
 
 	parseKey = parseInt(e.keyCode);
+	console.log("parsed Key");
 	console.log("parsed: "+parseKey);
 
 	if(parseKey >=48 || parseKey <=57) {
@@ -932,7 +948,7 @@ $('html').keypress(function(e) {
 	// else if (e.keyCode == "115") {
 	// 	dictatethis(e.keyCode);
 	// }
-});
+}
 
 // $('.rank-mover .mover').on('click', function() {
 // 	console.log("func");
