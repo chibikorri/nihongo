@@ -58,6 +58,7 @@ totalOccur = 0;
     <a href="{{url('/kanjicardspassive')}}">Kanji Cards (Passive)</a>
     <a href="{{url('/kotobacards')}}">Kotoba Cards</a>
     <a href="{{url('/rotate_tts')}}">Rotate TTS</a>
+    <a href="{{url('/listen_practice')}}">Listening practice</a>
  	</div>
 </div>
 </div>

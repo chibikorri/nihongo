@@ -22,6 +22,7 @@ Route::get('/datakotoba', 'datahandler@dataOutputKotoba');
 Route::get('/kanjicards', 'japanese@kanjiCardsNormal');
 Route::get('/kanjicardsactive', 'japanese@kanjiCardsActive', ["as" => "kanjicards"]);
 Route::get('/kanjicardspassive', 'japanese@kanjiCardsPassive', ["as" => "kanjicards"]);
+Route::get('/listen_practice', 'japanese@listenRenshuu');
 
 //kotoba
 Route::get('/kotobacards', 'japanese@kotobaCards');

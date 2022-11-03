@@ -349,6 +349,15 @@ class japanese extends Controller
     	// 	]);
     }
 
+    public function listenRenshuu() {
+
+      $videoList = Config::get('videosources');
+      return view('listen_practice', [
+        'videoList' => $videoList
+
+        ]);
+    }
+
     public function rotateTTS() {
         // dd($mode);
 

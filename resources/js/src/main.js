@@ -22,6 +22,10 @@ $(function() {
 
 	}
 
+	if($('.listening-practice')) {
+		listeningPractice();
+	}
+
 
 
 
